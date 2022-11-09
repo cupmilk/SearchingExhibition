@@ -8,10 +8,9 @@ import List1 from "./../pages/List1";
 const Router = () => {
   const [codeName, setCodeName] = useState(null);
 
-  const handleCodeName = (codeName) => {
-    setCodeName(codeName);
+  const handleCodeName = (result) => {
+    setCodeName(result);
   };
-
   useEffect(() => {
     console.log(codeName);
   }, [codeName]);
@@ -27,7 +26,9 @@ const Router = () => {
       ></Route>
       <Route
         path="/result"
-        element={<ResultPage codeName={codeName} />}
+        element={
+          <ResultPage handleCodeName={handleCodeName} codeName={codeName} />
+        }
       ></Route>
     </Routes>
   );
