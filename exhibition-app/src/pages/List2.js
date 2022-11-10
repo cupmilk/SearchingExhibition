@@ -1,26 +1,12 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const List2 = (props) => {
-  const { handleCodeName, codeName } = props;
-  const [result, setResult] = useState(null);
-
-  const navigate = useNavigate();
+  const route = useNavigate();
 
   const showResult = (e) => {
-    setResult(e.target.value);
+    route(`/result?catrgory=${e.target.value}`);
   };
-
-  useEffect(() => {
-    if (result) {
-      navigate("/result");
-    }
-  }, [result]);
-
-  useEffect(() => {
-    handleCodeName(result);
-  }, [handleCodeName, result]);
-
   return (
     <>
       <button id="Btn" value="문화교양/강좌" onClick={showResult}>
