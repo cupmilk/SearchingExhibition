@@ -1,62 +1,30 @@
-import axios from "axios";
-import React, { useCallback, useEffect, useState } from "react";
-import ListTransForm from "../components/ListTransForm";
-import { useSearchParams } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const ResultPage = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const category = searchParams.get("catrgory");
+const ResultPage = (props) => {
+  const route = useNavigate();
 
-  const [apiDatas, setApiDatas] = useState(null);
-  const [newData, setNewData] = useState(null);
-  const [passed, setPassed] = useState(false);
-
-  const getData = useCallback(async () => {
-    try {
-      const URL =
-        "http://openapi.seoul.go.kr:8088/536e484769796d3937324150436959/json/culturalEventInfo/1/50/";
-
-      const sendData = await axios.get(URL + `${category} `);
-      const result = sendData.data;
-
-      // console.log(result);
-
-      setNewData(result.culturalEventInfo);
-    } catch (error) {
-      console.log(error);
-    }
-  }, [category]);
-
-  //근시일내에 6개만 나오도록 하고싶음
-  // 1. 오늘날짜와 시작 날짜를 비교(오늘날짜 > 시작날짜)
-  // 2. 오늘날짜와 종료 날짜 비교 (오늘날짜 < 비교날짜)
-  // 3. 해당 목록중
-
-  useEffect(() => {
-    getData();
-  }, [getData]);
-
-  useEffect(() => {
-    console.log("query?", category);
-  }, [category]);
-
-  useEffect(() => {
-    if (newData) {
-      setApiDatas(newData.row);
-      console.log("setApiData");
-    }
-  }, [newData]);
-  //apidate를 정제하는 무언가
-
+  const showResult = (e) => {
+    route(`/recommand?catrgory=${e.target.value}`);
+  };
   return (
-    <div>
-      {apiDatas &&
-        apiDatas.map((apiData, index) => (
-          <div key={index}>
-            <ListTransForm apiData={apiData} />
-          </div>
-        ))}
-    </div>
+    <>
+      <button id="Btn" value="문화교양/강좌" onClick={showResult}>
+        문화교양/강좌
+      </button>
+      <button id="Btn" value="전시/미술" onClick={showResult}>
+        전시/미술
+      </button>
+      <button id="Btn" value="뮤지컬/오페라" onClick={showResult}>
+        뮤지컬/오페라
+      </button>
+      <button id="Btn" value="콘서트" onClick={showResult}>
+        콘서트
+      </button>
+      <button id="Btn" value="클래식" onClick={showResult}>
+        클래식
+      </button>
+    </>
   );
 };
 

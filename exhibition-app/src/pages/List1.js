@@ -1,12 +1,11 @@
 import React from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import List2 from "./List2";
+import { useNavigate } from "react-router-dom";
 
 const List1 = () => {
   const navigate = useNavigate();
 
   const handleResult = () => {
-    navigate("/List2");
+    navigate("/ResultPage");
   };
 
   return (
