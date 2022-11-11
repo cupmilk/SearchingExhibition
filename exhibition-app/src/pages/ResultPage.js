@@ -7,8 +7,9 @@ const ResultPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const category = searchParams.get("catrgory");
 
-  const [apiData, setApiData] = useState(null);
+  const [apiDatas, setApiDatas] = useState(null);
   const [newData, setNewData] = useState(null);
+  const [passed, setPassed] = useState(false);
 
   const getData = useCallback(async () => {
     try {
@@ -26,6 +27,11 @@ const ResultPage = () => {
     }
   }, [category]);
 
+  //근시일내에 6개만 나오도록 하고싶음
+  // 1. 오늘날짜와 시작 날짜를 비교(오늘날짜 > 시작날짜)
+  // 2. 오늘날짜와 종료 날짜 비교 (오늘날짜 < 비교날짜)
+  // 3. 해당 목록중
+
   useEffect(() => {
     getData();
   }, [getData]);
@@ -36,22 +42,20 @@ const ResultPage = () => {
 
   useEffect(() => {
     if (newData) {
-      // console.log("data in", newData.row);
-      setApiData(newData.row);
+      setApiDatas(newData.row);
+      console.log("setApiData");
     }
   }, [newData]);
   //apidate를 정제하는 무언가
 
   return (
     <div>
-      <ul>
-        {apiData &&
-          apiData.map((list, index) => (
-            <li key={index}>
-              <ListTransForm list={list} />
-            </li>
-          ))}
-      </ul>
+      {apiDatas &&
+        apiDatas.map((apiData, index) => (
+          <div key={index}>
+            <ListTransForm apiData={apiData} />
+          </div>
+        ))}
     </div>
   );
 };
