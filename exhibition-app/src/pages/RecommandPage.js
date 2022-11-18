@@ -42,11 +42,6 @@ const RecommandPage = () => {
         const endDay = new Date(apiData.DATE.split("~")[1]);
         const today = new Date();
 
-        // return (
-        //   startDay.getTime() < today.getTime() &&
-        //   endDay.getTime() > today.getTime()
-        // )
-
         if (
           startDay.getTime() < today.getTime() &&
           endDay.getTime() > today.getTime()

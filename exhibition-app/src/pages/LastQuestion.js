@@ -1,7 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-const Question2 = (props) => {
+const LastQuestion = (props) => {
   const { handleInterest, navigate } = props;
   const handleStore = (e) => {
     handleInterest((prev) => [...prev, e.target.value]);
@@ -44,4 +43,4 @@ const Question2 = (props) => {
   );
 };
 
-export default Question2;
+export default LastQuestion;

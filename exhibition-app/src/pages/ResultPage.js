@@ -16,7 +16,6 @@ const ResultPage = (props) => {
   };
 
   const getMode = useCallback(() => {
-    const interestArr = interest;
     const sortedInterest = [...interest].sort((a, b) => a - b);
     let cnt;
     let mode = 0; //최빈값
