@@ -22,7 +22,6 @@ const ListTransForm = (props) => {
         endDay: Number(arr[2]),
       }));
     }
-    //무한 스크롤이 되는 이유를 모르겠음
   }, [apiData]);
 
   // 티켓 무료, 유료 여부 확인

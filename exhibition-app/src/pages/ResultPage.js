@@ -1,20 +1,15 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ErrorPage from "./ErrorPage";
 
 const ResultPage = (props) => {
-  const { interest } = props;
-
-  const route = useNavigate();
-  //최빈값 구하기
-  // stirng -> 숫자변환
-  // 숫자에 맞춰 최반값 구하기
-
+  const { interest, navigate } = props;
   const [category, setCategory] = useState(0);
 
   const showResult = (e) => {
-    route(`/recommand?catrgory=${e.target.value}`);
+    navigate(`/recommand?catrgory=${e.target.value}`);
   };
-
+  //최빈값 구하기
   const getMode = useCallback(() => {
     const sortedInterest = [...interest].sort((a, b) => a - b);
     let cnt;
@@ -54,10 +49,6 @@ const ResultPage = (props) => {
     getMode();
   }, [getMode, interest]);
 
-  useEffect(() => {
-    console.log(category);
-  }, [category]);
-
   //이건 컴포넌트로 빼는게 나을듯
   const showBtn = () => {
     switch (category) {
@@ -73,36 +64,31 @@ const ResultPage = (props) => {
             전시/미술
           </button>
         );
-      default:
+      case "3":
         return (
-          <div>
-            {" "}
-            <h1> switch오류</h1>{" "}
-          </div>
+          <button id="Btn" value="뮤지컬/오페라" onClick={showResult}>
+            뮤지컬/오페라
+          </button>
         );
+      case "4":
+        return (
+          <button id="Btn" value="콘서트" onClick={showResult}>
+            콘서트
+          </button>
+        );
+      case "5":
+        return (
+          <button id="Btn" value="클래식" onClick={showResult}>
+            전시/미술
+          </button>
+        );
+      default:
+        //오류페이지 mainpage로 가도록
+        return <ErrorPage navigate={navigate} />;
     }
   };
 
-  return (
-    // <>
-    //   <button id="Btn" value="문화교양/강좌" onClick={showResult}>
-    //     문화교양/강좌
-    //   </button>
-    //   <button id="Btn" value="전시/미술" onClick={showResult}>
-    //     전시/미술
-    //   </button>
-    //   <button id="Btn" value="뮤지컬/오페라" onClick={showResult}>
-    //     뮤지컬/오페라
-    //   </button>
-    //   <button id="Btn" value="콘서트" onClick={showResult}>
-    //     콘서트
-    //   </button>
-    //   <button id="Btn" value="클래식" onClick={showResult}>
-    //     클래식
-    //   </button>
-    // </>
-    <>{showBtn()}</>
-  );
+  return <>{showBtn()}</>;
 };
 
 export default ResultPage;

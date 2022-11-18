@@ -1,8 +1,5 @@
 import React, { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import QustionCommentBtn from "../components/QustionCommentBtn";
-
-// 점수를 리턴해서 배열에 넣어서 마지막 배열에 값에 따라 결과값(result page의 결과) 다르게 도출
 
 const Question = (props) => {
   const { handleInterest, navigate, nextURL, interest } = props;
@@ -30,32 +27,27 @@ const Question = (props) => {
       <ul>
         {/* <QustionCommentBtn handleStore={handleStore} value={1} /> */}
         <li>
-          <button onClick={handleStore} id="exhibition" value={1}>
+          <button onClick={handleStore} id="cultureLecture" value={1}>
             문화교양/강좌 질문
           </button>
         </li>
         <li>
-          <button onClick={handleStore} id="consert" value={2}>
+          <button onClick={handleStore} id="exhibition" value={2}>
             전시/미술 질문
           </button>
         </li>
         <li>
-          <button onClick={handleStore} id="exhibition" value={3}>
-            전시 질문
+          <button onClick={handleStore} id="musical" value={3}>
+            뮤지컬/오페라
           </button>
         </li>
         <li>
           <button onClick={handleStore} id="consert" value={4}>
-            뮤지컬/오페라 질문
+            콘서트
           </button>
         </li>
         <li>
-          <button onClick={handleStore} id="exhibition" value={3}>
-            콘서트 질문
-          </button>
-        </li>
-        <li>
-          <button onClick={handleStore} id="exhibition" value={3}>
+          <button onClick={handleStore} id="classic" value={5}>
             클래식 질문
           </button>
         </li>

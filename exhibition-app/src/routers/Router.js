@@ -5,6 +5,7 @@ import ResultPage from "./../pages/ResultPage";
 import RecommandPage from "../pages/RecommandPage";
 import Question from "../pages/Question";
 import LastQuestion from "../pages/LastQuestion";
+import ErrorPage from "../pages/ErrorPage";
 
 const Router = () => {
   //[exhibition,exhibition, exhibition, consert ] => exhibition
@@ -80,14 +81,21 @@ const Router = () => {
       <Route
         path={QuestionPage.q4.path}
         element={
-          <LastQuestion handleInterest={handleInterest} navigate={navigate} />
+          <Question
+            id="last__Page"
+            handleInterest={handleInterest}
+            navigate={navigate}
+            interest={interest}
+            nextURL="/ResultPage"
+          />
         }
       ></Route>
       <Route
         path="/ResultPage"
-        element={<ResultPage interest={interest} />}
+        element={<ResultPage interest={interest} navigate={navigate} />}
       ></Route>
       <Route path="/recommand" element={<RecommandPage />}></Route>
+      <Route path="/error" element={<ErrorPage navigate={navigate} />}></Route>
     </Routes>
   );
 };

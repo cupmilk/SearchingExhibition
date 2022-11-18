@@ -18,7 +18,7 @@ const RecommandPage = () => {
       const sendData = await axios.get(URL + `${category} `);
       const result = sendData.data;
 
-      // console.log(result);
+      console.log(result);
 
       setNewData(result.culturalEventInfo);
     } catch (error) {
@@ -42,8 +42,10 @@ const RecommandPage = () => {
         const endDay = new Date(apiData.DATE.split("~")[1]);
         const today = new Date();
 
+        // console.log(startDay.getTime() + "  " + today.getTime());
+        // console.log(endDay.getTime() + "  " + today.getTime());
         if (
-          startDay.getTime() < today.getTime() &&
+          // startDay.getTime() < today.getTime() &&
           endDay.getTime() > today.getTime()
         ) {
           return true;
@@ -56,14 +58,19 @@ const RecommandPage = () => {
     }
   }, [newData]);
 
+  // 근 시일부터 결과값이 출력되게 하기 위해서 map을 역순으로 가져옴
+  //  원본을 훼손 시키지 않기 위해서 slice(0)으로 복사 그후 reverse()적용
   return (
     <div>
       {apiDatas &&
-        apiDatas.map((apiData, index) => (
-          <div key={index}>
-            <ListTransForm apiData={apiData} />
-          </div>
-        ))}
+        apiDatas
+          .slice(0, 6)
+          .reverse()
+          .map((apiData, index) => (
+            <div key={index}>
+              <ListTransForm apiData={apiData} />
+            </div>
+          ))}
     </div>
   );
 };
