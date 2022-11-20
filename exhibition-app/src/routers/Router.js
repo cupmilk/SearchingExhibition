@@ -24,39 +24,38 @@ const Router = () => {
     console.log(interest);
   }, [interest]);
 
-  const QuestionPage = {
-    q1: {
-      path: `${QURL}1`,
-      nav: `${QURL}2?page=2`,
-    },
-    q2: {
-      path: `${QURL}2`,
-      nav: `${QURL}3?page=3`,
-    },
-    q3: {
-      path: `${QURL}3`,
-      nav: `${QURL}4?page=4`,
-    },
-    q4: {
-      path: `${QURL}4`,
-      nav: `${QURL}5?page=5`,
-    },
-  };
+  // const QuestionPage = {
+  //   q1: {
+  //     path: `${QURL}1`,
+  //     nav: `${QURL}2?page=2`,
+  //   },
+  //   q2: {
+  //     path: `${QURL}2`,
+  //     nav: `${QURL}3?page=3`,
+  //   },
+  //   q3: {
+  //     path: `${QURL}3`,
+  //     nav: `${QURL}4?page=4`,
+  //   },
+  //   q4: {
+  //     path: `${QURL}4`,
+  //     nav: `${QURL}5?page=5`,
+  //   },
+  // };
   return (
     <Routes>
       <Route path="/" element={<Main />}></Route>
       <Route
-        path={QuestionPage.q1.path}
+        path="/Question"
         element={
           <Question
             handleInterest={handleInterest}
             navigate={navigate}
             interest={interest}
-            nextURL={QuestionPage.q1.nav}
           />
         }
       ></Route>
-      <Route
+      {/* <Route
         path={QuestionPage.q2.path}
         element={
           <Question
@@ -89,7 +88,7 @@ const Router = () => {
             nextURL="/ResultPage"
           />
         }
-      ></Route>
+      ></Route> */}
       <Route
         path="/ResultPage"
         element={<ResultPage interest={interest} navigate={navigate} />}
