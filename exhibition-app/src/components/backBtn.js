@@ -1,7 +1,7 @@
 import React from "react";
 
-const Selection = () => {
+const backBtn = () => {
   return <div></div>;
 };
 
-export default Selection;
+export default backBtn;

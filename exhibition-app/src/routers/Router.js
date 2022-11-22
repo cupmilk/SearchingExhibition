@@ -42,9 +42,13 @@ const Router = () => {
   //     nav: `${QURL}5?page=5`,
   //   },
   // };
+
   return (
     <Routes>
-      <Route path="/" element={<Main />}></Route>
+      <Route
+        path="/"
+        element={<Main handleInterest={handleInterest} />}
+      ></Route>
       <Route
         path="/Question"
         element={
@@ -55,40 +59,6 @@ const Router = () => {
           />
         }
       ></Route>
-      {/* <Route
-        path={QuestionPage.q2.path}
-        element={
-          <Question
-            handleInterest={handleInterest}
-            navigate={navigate}
-            interest={interest}
-            nextURL={QuestionPage.q2.nav}
-          />
-        }
-      ></Route>
-      <Route
-        path={QuestionPage.q3.path}
-        element={
-          <Question
-            handleInterest={handleInterest}
-            navigate={navigate}
-            interest={interest}
-            nextURL={QuestionPage.q3.nav}
-          />
-        }
-      ></Route>
-      <Route
-        path={QuestionPage.q4.path}
-        element={
-          <Question
-            id="last__Page"
-            handleInterest={handleInterest}
-            navigate={navigate}
-            interest={interest}
-            nextURL="/ResultPage"
-          />
-        }
-      ></Route> */}
       <Route
         path="/ResultPage"
         element={<ResultPage interest={interest} navigate={navigate} />}
