@@ -34,7 +34,8 @@ const SearchExhibition = () => {
   return (
     // 내가 의문을 갖었떤 오류는 배열을 불러온는건데 반복문으로 돌리질 않으니 오류가 나왔던것
     <div className="App">
-      {apiData && apiData.map((d, i) => <span key={i}>{d.TITLE} </span>)}
+      {apiData &&
+        apiData.map((deta, index) => <span key={index}>{deta.TITLE} </span>)}
     </div>
   );
 };

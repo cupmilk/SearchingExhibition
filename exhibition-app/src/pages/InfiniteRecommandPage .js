@@ -3,8 +3,6 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import ListTransForm from "../components/ListTransForm";
 import { useSearchParams } from "react-router-dom";
 import InternalPage from "../components/InternalPage";
-import RecommandCard from "../components/RecommandCard";
-import ProductMain from "../components/ProductMain";
 
 const RecommandPage = () => {
   const [searchParams] = useSearchParams();
@@ -12,6 +10,20 @@ const RecommandPage = () => {
 
   const [apiDatas, setApiDatas] = useState([]);
   const [newData, setNewData] = useState(null);
+
+  const items = {
+    item: [],
+    moreItemsLoading: false,
+    hasNextPage: true,
+  };
+
+  const loadmore = async () => {
+    const URL =
+      "http://openapi.seoul.go.kr:8088/536e484769796d3937324150436959/json/culturalEventInfo/1/1000/";
+
+    const sendData = await axios.get(URL + `${category} `);
+    const result = await sendData.data;
+  };
 
   const getData = useCallback(async () => {
     try {
@@ -66,11 +78,6 @@ const RecommandPage = () => {
   return (
     <div>
       <div>
-        {/* <InternalPage apiDatas={apiDatas} /> */}
-        {/* <RecommandCard apiDatas={apiDatas} /> */}
-        <ProductMain list={apiDatas} />
-      </div>
-      {/* <div>
         {apiDatas &&
           apiDatas
             .slice(0, 6)
@@ -80,7 +87,10 @@ const RecommandPage = () => {
                 <ListTransForm apiData={apiData} />
               </div>
             ))}
-      </div> */}
+      </div>
+      <div>
+        <InternalPage apiDatas={apiDatas} />
+      </div>
     </div>
   );
 };

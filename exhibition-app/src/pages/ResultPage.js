@@ -54,32 +54,32 @@ const ResultPage = (props) => {
     switch (category) {
       case "1":
         return (
-          <button id="Btn" value="문화교양/강좌" onClick={showResult}>
+          <button id="Btn" value="문화교양" onClick={showResult}>
             문화교양/강좌
           </button>
         );
       case "2":
         return (
-          <button id="Btn" value="전시/미술" onClick={showResult}>
-            전시/미술
+          <button id="Btn" value="콘서트" onClick={showResult}>
+            콘서트
           </button>
         );
       case "3":
         return (
-          <button id="Btn" value="뮤지컬/오페라" onClick={showResult}>
-            뮤지컬/오페라
+          <button id="Btn" value="전시" onClick={showResult}>
+            전시/미술
           </button>
         );
       case "4":
         return (
-          <button id="Btn" value="콘서트" onClick={showResult}>
-            콘서트
+          <button id="Btn" value="뮤지컬" onClick={showResult}>
+            뮤지컬/오페라
           </button>
         );
       case "5":
         return (
           <button id="Btn" value="클래식" onClick={showResult}>
-            전시/미술
+            클래식
           </button>
         );
       default:

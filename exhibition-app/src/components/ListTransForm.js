@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const ListTransForm = (props) => {
   const { apiData } = props;
@@ -24,6 +25,11 @@ const ListTransForm = (props) => {
     }
   }, [apiData]);
 
+  const ticketURL = () => {
+    window.location.href = `${apiData.ORG_LINK}`;
+    // <href to={apiData.ORG_LINK}></href>;
+  };
+
   // 티켓 무료, 유료 여부 확인
   const transFormUseFee = useCallback(() => {
     if (apiData.USE_FEE === "무료" || apiData.USE_FEE === "") {
@@ -43,9 +49,16 @@ const ListTransForm = (props) => {
     transFormUseFee();
   }, [transFormUseFee]);
 
+  console.log("실행중");
   return (
     <div>
-      <img src={apiData.MAIN_IMG} width="150px" height="150px" alt="" />
+      <img
+        onClick={ticketURL}
+        src={apiData.MAIN_IMG}
+        width="150px"
+        height="150px"
+        alt=""
+      />
       <h1>{apiData.TITLE}</h1>
       <span> {apiData.PLACE} </span>
       <span>{apiData.DATE}</span>
@@ -53,7 +66,6 @@ const ListTransForm = (props) => {
         {endData.endYear}년 {endData.endMonth}월 {endData.endYear}일{" "}
       </span>
       <span> 가격 : {useFree ? "무료" : "유료"}</span>
-      <span> 가격 : {apiData.USE_FEE}</span>
     </div>
   );
 };
