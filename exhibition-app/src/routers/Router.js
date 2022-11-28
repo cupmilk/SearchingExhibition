@@ -20,9 +20,9 @@ const Router = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(interest);
-  }, [interest]);
+  // useEffect(() => {
+  //   console.log(interest);
+  // }, [interest]);
 
   // const QuestionPage = {
   //   q1: {

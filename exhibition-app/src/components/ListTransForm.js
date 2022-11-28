@@ -27,7 +27,6 @@ const ListTransForm = (props) => {
 
   const ticketURL = () => {
     window.location.href = `${apiData.ORG_LINK}`;
-    // <href to={apiData.ORG_LINK}></href>;
   };
 
   // 티켓 무료, 유료 여부 확인
@@ -49,7 +48,7 @@ const ListTransForm = (props) => {
     transFormUseFee();
   }, [transFormUseFee]);
 
-  console.log("실행중");
+  // console.log("실행중");
   return (
     <div>
       <img
@@ -61,9 +60,9 @@ const ListTransForm = (props) => {
       />
       <h1>{apiData.TITLE}</h1>
       <span> {apiData.PLACE} </span>
-      <span>{apiData.DATE}</span>
+      {/* <span>{apiData.DATE}</span> */}
       <span>
-        {endData.endYear}년 {endData.endMonth}월 {endData.endYear}일{" "}
+        종료일 : {endData.endYear}년 {endData.endMonth}월 {endData.endDay}일{" "}
       </span>
       <span> 가격 : {useFree ? "무료" : "유료"}</span>
     </div>
