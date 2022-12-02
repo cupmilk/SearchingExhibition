@@ -1,6 +1,4 @@
-import { createBrowserHistory } from "@remix-run/router";
 import React, { useState, useEffect, useCallback } from "react";
-import { useSearchParams } from "react-router-dom";
 
 //사용자가 결과값을 임의로 접근할 수 있기 때문에 param을 이용하여 페이지 넘기던 방식을 수정
 // map을 이용하여 똑같은 페이지 복사 붙여넣기 방식 수정
@@ -19,16 +17,19 @@ const Question = (props) => {
     }
   };
 
+  // 여기 숫자 바꾸는것도 변화가 필요하네
+  // 여기 길이 비교도 qaData 넣을때 자꾸만 변동해줘야해서 불편한듯?
   const handleStore = (e) => {
-    if (interest.length === 3) {
+    if (interest.length === 5) {
       navigate("/ResultPage");
     } else {
       handleInterest((prev) => [...prev, e.target.value]);
       setStep((prev) => prev + 1);
-      console.log(interest.length);
+      // console.log(interest.length);
     }
   };
-
+  //흠 뭔가 이러헥 하니까 handleStore 없으면 안되가지고 불편한듯?
+  // 여기 데이터에 하나하나 추가해주는것도 불편한듯?
   const qaData = [
     {
       step: 1,
@@ -178,6 +179,80 @@ const Question = (props) => {
         },
       ],
     },
+    {
+      step: 5,
+      title: "q5",
+      subtitle: "sq5",
+      questionData: [
+        {
+          questionTitle: "문화교양/강좌 질문",
+          id: "cultureLecture",
+          event: handleStore,
+          value: 1,
+        },
+        {
+          questionTitle: "콘서트 질문",
+          id: "consert",
+          event: handleStore,
+          value: 2,
+        },
+        {
+          questionTitle: "전시/미술 ",
+          id: "exhibition",
+          event: handleStore,
+          value: 3,
+        },
+        {
+          questionTitle: "뮤지컬 질문",
+          id: "musical",
+          event: handleStore,
+          value: 4,
+        },
+        {
+          questionTitle: "클래식 질문",
+          id: "classic",
+          event: handleStore,
+          value: 5,
+        },
+      ],
+    },
+    {
+      step: 6,
+      title: "q6",
+      subtitle: "sq6",
+      questionData: [
+        {
+          questionTitle: "문화교양/강좌 질문",
+          id: "cultureLecture",
+          event: handleStore,
+          value: 1,
+        },
+        {
+          questionTitle: "콘서트 질문",
+          id: "consert",
+          event: handleStore,
+          value: 2,
+        },
+        {
+          questionTitle: "전시/미술 ",
+          id: "exhibition",
+          event: handleStore,
+          value: 3,
+        },
+        {
+          questionTitle: "뮤지컬 질문",
+          id: "musical",
+          event: handleStore,
+          value: 4,
+        },
+        {
+          questionTitle: "클래식 질문",
+          id: "classic",
+          event: handleStore,
+          value: 5,
+        },
+      ],
+    },
   ];
 
   //prorps를 가져오는거라서 넣어줘야하는데 넣으면 한무루프가 되서 쩝..
@@ -188,6 +263,8 @@ const Question = (props) => {
   useEffect(() => {
     resetValue();
   }, [resetValue]);
+
+  //이거 마지막 선택지 작동안함
 
   return (
     <div>
@@ -215,56 +292,10 @@ const Question = (props) => {
             </div>
           );
         }
+        // return {}
       })}
-
-      {/* {qaData.map((data, index) => {
-        if (data.step === step) {
-          return (
-            <div key={index}>
-              <h2> 질문 {data.title}</h2>
-              <h4> {data.subtitle} </h4>
-              <ul>
-                {data.questionData.map((data, index) => (
-                  <li key={index}>
-                    <button
-                      type="button"
-                      onClick={data.event}
-                      id={data.id}
-                      value={data.value}
-                    >
-                      {data.questionTitle}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          );
-        }
-      })} */}
       <button onClick={clickBack}>뒤로가기</button>
     </div>
-    // <>
-    //   {/* <li>
-    //                 <button onClick={handleStore} id="exhibition" value={2}>
-    //                   전시/미술 질문
-    //                 </button>
-    //               </li>
-    //               <li>
-    //                 <button onClick={handleStore} id="musical" value={3}>
-    //                   뮤지컬/오페라
-    //                 </button>
-    //               </li>
-    //               <li>
-    //                 <button onClick={handleStore} id="consert" value={4}>
-    //                   콘서트
-    //                 </button>
-    //               </li>
-    //               <li>
-    //                 <button onClick={handleStore} id="classic" value={5}>
-    //                   클래식 질문
-    //                 </button>
-    //               </li> */}
-    // </>
   );
 };
 

@@ -1,57 +1,77 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
+import styled from "styled-components";
+import App from "./../App";
+
+function getSortedArr(array) {
+  // 1. 출연 빈도 구하기
+  const counts = array.reduce((pv, cv) => {
+    pv[cv] = (pv[cv] || 0) + 1;
+    return pv;
+  }, {});
+
+  // 2. 요소와 개수를 표현하는 배열 생성 => [ [요소: 개수], [요소: 개수], ...]
+  const countArr = [];
+  for (let key in counts) {
+    countArr.push([key, counts[key]]);
+  }
+  // 3. 출현 빈도별 정리하기
+  countArr.sort((first, second) => {
+    // second[1] - first[1] 숫자가 같게 변함 second[1] = first[1]이렇게 되버림 ? 왜그렇지 고장 나버림 이건 이유를 찾아서 확인 해봐야할듯
+    //  first[1] - second[1] 이경우에만 정상적으로 작동 근데 왜 그렇게 되는지 모름
+    return first[1] - second[1];
+  });
+  //[ ["1", 1]  ["2", 3 ]  ]
+  //[ ["1", 2]  ["2", 2 ]  ]
+  //[ ["1", 1]  ["2", 1 ] ["3",1] ["4",1]]
+
+  let repeatMode = 0; // 최빈값이 반복된 횟수
+  let modes = []; //최빈값
+
+  for (const item in countArr) {
+    // 배열속 배열의 2번재값 = 2.의 개수
+    //
+    if (countArr[item][1] > repeatMode) {
+      // 가장 많이 반복된 횟수를 넣는다
+      repeatMode = countArr[item][1];
+      // 가장 많이 반복됫 회수의 요소를 집어 넣는다
+      modes = [countArr[item][0]];
+    } else if ((countArr[item][1] = repeatMode)) {
+      // 가장 많이 반복된 횟수가 동일할경우 배열에 집어넣는다.
+      modes.push(countArr[item][0]);
+    }
+  }
+
+  const result = {
+    repeatMode,
+    modes,
+    countArr,
+  };
+
+  return result;
+}
 
 const ResultPage = (props) => {
   const { interest, navigate } = props;
-  const [category, setCategory] = useState(0);
+  const [category, setCategory] = useState([]);
 
   const showResult = (e) => {
     navigate(`/recommand?catrgory=${e.target.value}`);
   };
-  //최빈값 구하기
-  const getMode = useCallback(() => {
-    const sortedInterest = [...interest].sort((a, b) => a - b);
-    let cnt;
-    let mode = 0; //최빈값
-    let reMode = 0; //최빈값이 반복된 횟수
-    let repeatCnt = 0; //같은숫자가 반복됫 횟수
-    let beforeNum = 0; //  지금보고있는 숫자 이전값
-    let isDupMode = false;
-    for (cnt = 0; cnt < sortedInterest.length; cnt++) {
-      if (beforeNum !== sortedInterest[cnt]) {
-        repeatCnt = 1;
-      } else {
-        repeatCnt = repeatCnt + 1;
-      }
 
-      if (repeatCnt === reMode) {
-        if (mode !== sortedInterest[cnt]) {
-          isDupMode = true;
-        }
-      }
-
-      if (repeatCnt > reMode) {
-        mode = sortedInterest[cnt];
-        reMode = repeatCnt;
-        isDupMode = false;
-      }
-      beforeNum = sortedInterest[cnt];
-    }
-
-    if (isDupMode) {
-      return setCategory(-1); // 중복일때 다시 생각해봐야할듯?
-    }
-    return setCategory(mode);
+  //요소에 포함된 갯수 만큼 보여준다
+  const getCategory = useCallback(() => {
+    const modeResult = getSortedArr(interest);
+    setCategory(modeResult.modes);
   }, [interest]);
 
   useEffect(() => {
-    getMode();
-  }, [getMode, interest]);
+    getCategory();
+  }, [getCategory]);
 
-  //이건 컴포넌트로 빼는게 나을듯
-  const showBtn = () => {
-    switch (category) {
+  const showBtn = (mode) => {
+    switch (mode) {
       case "1":
         return (
           <button id="Btn" value="문화교양" onClick={showResult}>
@@ -87,8 +107,21 @@ const ResultPage = (props) => {
         return <ErrorPage navigate={navigate} />;
     }
   };
-
-  return <>{showBtn()}</>;
+  // 새로고침때의 오류
+  return (
+    <div>
+      {category.length !== 1 ? (
+        <>
+          <div>(다수) 대충 컨텐츠</div>
+        </>
+      ) : (
+        <>
+          <div>(단일) 컨텐츠 </div>
+        </>
+      )}
+      <div>{category.map((mode, index) => showBtn(mode))}</div>
+    </div>
+  );
 };
 
 export default ResultPage;

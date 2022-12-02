@@ -4,7 +4,7 @@ import Main from "./../pages/Main";
 import ResultPage from "./../pages/ResultPage";
 import RecommandPage from "../pages/RecommandPage";
 import Question from "../pages/Question";
-import LastQuestion from "../pages/LastQuestion";
+
 import ErrorPage from "../pages/ErrorPage";
 
 const Router = () => {
@@ -19,30 +19,7 @@ const Router = () => {
   };
 
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   console.log(interest);
-  // }, [interest]);
-
-  // const QuestionPage = {
-  //   q1: {
-  //     path: `${QURL}1`,
-  //     nav: `${QURL}2?page=2`,
-  //   },
-  //   q2: {
-  //     path: `${QURL}2`,
-  //     nav: `${QURL}3?page=3`,
-  //   },
-  //   q3: {
-  //     path: `${QURL}3`,
-  //     nav: `${QURL}4?page=4`,
-  //   },
-  //   q4: {
-  //     path: `${QURL}4`,
-  //     nav: `${QURL}5?page=5`,
-  //   },
-  // };
-
+  // console.log("리로드");
   return (
     <Routes>
       <Route
@@ -63,7 +40,10 @@ const Router = () => {
         path="/ResultPage"
         element={<ResultPage interest={interest} navigate={navigate} />}
       ></Route>
-      <Route path="/recommand" element={<RecommandPage />}></Route>
+      <Route
+        path="/recommand"
+        element={<RecommandPage navigate={navigate} />}
+      ></Route>
       <Route path="/error" element={<ErrorPage navigate={navigate} />}></Route>
     </Routes>
   );

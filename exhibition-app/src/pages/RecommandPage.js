@@ -3,7 +3,8 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import ListTransForm from "../components/ListTransForm";
 import { useSearchParams } from "react-router-dom";
 
-const RecommandPage = () => {
+const RecommandPage = (props) => {
+  const { navigate } = props;
   const [searchParams] = useSearchParams();
   const category = searchParams.get("catrgory");
 
@@ -24,13 +25,6 @@ const RecommandPage = () => {
       console.log(error);
     }
   }, [category]);
-
-  //근시일내에 6개만 나오도록 하고싶음
-  // 1. 오늘날짜와 시작 날짜를 비교(오늘날짜 > 시작날짜) -> 최근꺼를 보여주기 위함
-  // 2. 오늘날짜와 종료 날짜 비교 (오늘날짜 < 비교날짜) -> 현재 시청이 가능한거 구분
-  // 3. 해당 목록중
-
-  //  -> 근시일내로 무한스크롤로 보여주고싶음
 
   useEffect(() => {
     getData();
@@ -59,25 +53,15 @@ const RecommandPage = () => {
       );
     }
   }, [newData]);
-  // let dateNum = useRef(0);
-  // if (apiDatas && apiDatas.length > 0) {
-  //   dateNum.current = apiDatas.length;
-  //   console.log(dateNum.current);
-  // }
 
-  // 근 시일부터 결과값이 출력되게 하기 위해서 map을 역순으로 가져옴
-  //  원본을 훼손 시키지 않기 위해서 slice(0)으로 복사 그후 reverse()적용
-
-  const addNum = () => {
-    setListNum((prev) => prev + 1);
+  const goMain = () => {
+    navigate("/");
   };
 
-  // 매처음 0~n
-  // 더보기 누르면 n~2n
-  // n을 따로 저장 + 버튼 누를 때 slice 변화
-  // 누를때마다 slice 변화 + 복제되서 나오기
-
-  //현재구현 -> 다음으로 가는것
+  const addNum = () => {
+    return setListNum((prev) => prev + 1);
+  };
+  // 맨처음 6개, 이후 추가로 6개씩 보여줌
   const viewMore = (num) => {
     let max = num * 6;
     return (
@@ -89,26 +73,21 @@ const RecommandPage = () => {
       ))
     );
   };
-  // 더보기는 됬는데 이제 데이터를 날짜별로 보고싶단 말이지
-  // 데이터의 종료일이 현재 날짜와 가까운순
-  console.log(apiDatas.slice());
+
+  // console.log("리로드");
 
   return (
     <div>
-      {/* <div>
-        {apiDatas &&
-          apiDatas
-            .slice(0, 6)
-            .reverse()
-            .map((apiData, index) => (
-              <div key={index}>
-                <ListTransForm apiData={apiData} />
-              </div>
-            ))}
-      </div> */}
       <div>{viewMore(listNum)}</div>
       <div>
-        <button onClick={addNum}> 더보기</button>
+        {apiDatas.length >= listNum * 6 ? (
+          <button id="viewMore" onClick={addNum}>
+            더보기
+          </button>
+        ) : null}
+      </div>
+      <div>
+        <button onClick={goMain}> 테스트 다시하기 </button>
       </div>
     </div>
   );

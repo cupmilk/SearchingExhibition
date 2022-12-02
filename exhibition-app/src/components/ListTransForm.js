@@ -60,7 +60,6 @@ const ListTransForm = (props) => {
       />
       <h1>{apiData.TITLE}</h1>
       <span> {apiData.PLACE} </span>
-      {/* <span>{apiData.DATE}</span> */}
       <span>
         종료일 : {endData.endYear}년 {endData.endMonth}월 {endData.endDay}일{" "}
       </span>
