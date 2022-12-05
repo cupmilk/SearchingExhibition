@@ -22,9 +22,6 @@ function getSortedArr(array) {
     //  first[1] - second[1] 이경우에만 정상적으로 작동 근데 왜 그렇게 되는지 모름
     return first[1] - second[1];
   });
-  //[ ["1", 1]  ["2", 3 ]  ]
-  //[ ["1", 2]  ["2", 2 ]  ]
-  //[ ["1", 1]  ["2", 1 ] ["3",1] ["4",1]]
 
   let repeatMode = 0; // 최빈값이 반복된 횟수
   let modes = []; //최빈값
@@ -70,35 +67,35 @@ const ResultPage = (props) => {
     getCategory();
   }, [getCategory]);
 
-  const showBtn = (mode) => {
+  const showBtn = (mode, index) => {
     switch (mode) {
       case "1":
         return (
-          <button id="Btn" value="문화교양" onClick={showResult}>
+          <button id="Btn" key={index} value="문화교양" onClick={showResult}>
             문화교양/강좌
           </button>
         );
       case "2":
         return (
-          <button id="Btn" value="콘서트" onClick={showResult}>
+          <button id="Btn" key={index} value="콘서트" onClick={showResult}>
             콘서트
           </button>
         );
       case "3":
         return (
-          <button id="Btn" value="전시" onClick={showResult}>
+          <button id="Btn" key={index} value="전시" onClick={showResult}>
             전시/미술
           </button>
         );
       case "4":
         return (
-          <button id="Btn" value="뮤지컬" onClick={showResult}>
+          <button id="Btn" key={index} value="뮤지컬" onClick={showResult}>
             뮤지컬/오페라
           </button>
         );
       case "5":
         return (
-          <button id="Btn" value="클래식" onClick={showResult}>
+          <button id="Btn" key={index} value="클래식" onClick={showResult}>
             클래식
           </button>
         );
@@ -108,18 +105,38 @@ const ResultPage = (props) => {
     }
   };
   // 새로고침때의 오류
+  console.log(category);
+
+  //? 존나 비효율적인데;
+  const checkContents = () => {
+    category.length !== 1 ? (
+      <div>(다수) 대충 컨텐츠</div>
+    ) : (
+      <div>(다수) 대충 컨텐츠</div>
+    );
+  };
+
+  const cateoryMap =
+    ((<p> ㅇㅇ</p>),
+    (
+      <div>
+        {category.length !== 1 ? (
+          <>
+            <div>(다수) 대충 컨텐츠</div>
+            <div>{category.map((mode, index) => showBtn(mode, index))}</div>
+          </>
+        ) : (
+          <>
+            <div>(단일) 컨텐츠 </div>
+            <div>{category.map((mode, index) => showBtn(mode, index))}</div>
+          </>
+        )}
+      </div>
+    ));
+
   return (
     <div>
-      {category.length !== 1 ? (
-        <>
-          <div>(다수) 대충 컨텐츠</div>
-        </>
-      ) : (
-        <>
-          <div>(단일) 컨텐츠 </div>
-        </>
-      )}
-      <div>{category.map((mode, index) => showBtn(mode))}</div>
+      {category.length === 0 ? <ErrorPage navigate={navigate} /> : cateoryMap}
     </div>
   );
 };

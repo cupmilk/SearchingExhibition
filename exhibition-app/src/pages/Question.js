@@ -17,19 +17,48 @@ const Question = (props) => {
     }
   };
 
+  const myPromise = new Promise((resolve, reject) => {});
+
   // 여기 숫자 바꾸는것도 변화가 필요하네
   // 여기 길이 비교도 qaData 넣을때 자꾸만 변동해줘야해서 불편한듯?
+  // 마지막 질문에 대한 답이 의미가 없어진다 -> interest가 값이 올라가기 전에 네비게이트로 보내기때문에
+  // 1. settime 2.promise
   const handleStore = (e) => {
-    if (interest.length === 5) {
-      navigate("/ResultPage");
-    } else {
+    console.log(interest.length);
+    if (interest.length !== 6) {
       handleInterest((prev) => [...prev, e.target.value]);
       setStep((prev) => prev + 1);
       // console.log(interest.length);
     }
   };
+
+  useEffect(() => {
+    if (interest.length === 6) {
+      navigate("/ResultPage");
+    }
+  }, [interest.length, navigate]);
+  console.log(interest);
   //흠 뭔가 이러헥 하니까 handleStore 없으면 안되가지고 불편한듯?
   // 여기 데이터에 하나하나 추가해주는것도 불편한듯?
+
+  // const handleStore = (e) => {
+  //   if (interest.length !== 5) {
+  //     handleInterest((prev) => [...prev, e.target.value]);
+  //   }
+
+  //   // console.log(interest.length);
+  // };
+
+  // useEffect(() => {
+  //   console.log(interest.length);
+  //   if (interest.length === 5) {
+  //     navigate("/ResultPage");
+  //   } else {
+  //     setStep((prev) => prev + 1);
+  //     // console.log(interest.length);
+  //   }
+  // }, [interest.length, navigate]);
+
   const qaData = [
     {
       step: 1,

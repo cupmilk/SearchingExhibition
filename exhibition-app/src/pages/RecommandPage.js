@@ -62,6 +62,9 @@ const RecommandPage = (props) => {
     return setListNum((prev) => prev + 1);
   };
   // 맨처음 6개, 이후 추가로 6개씩 보여줌
+
+  //이건 따로 빼는게 나을듯?
+  // 없을때 어떻게 할지에 대한 무언가가 있어야할듯?
   const viewMore = (num) => {
     let max = num * 6;
     return (
@@ -74,7 +77,7 @@ const RecommandPage = (props) => {
     );
   };
 
-  // console.log("리로드");
+  console.log(apiDatas);
 
   return (
     <div>
