@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ListTransForm from "../components/ListTransForm";
 import { useSearchParams } from "react-router-dom";
+import axios from "axios";
 
 const RecommandPage = (props) => {
   const { navigate } = props;
@@ -19,6 +19,8 @@ const RecommandPage = (props) => {
 
       const sendData = await axios.get(URL + `${category} `);
       const result = await sendData.data;
+
+      console.log(result.culturalEventInfo);
 
       setNewData(result.culturalEventInfo);
     } catch (error) {

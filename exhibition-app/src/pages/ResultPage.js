@@ -3,19 +3,33 @@ import { useNavigate } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import styled from "styled-components";
 import App from "./../App";
+import Main from "./Main";
 
 function getSortedArr(array) {
   // 1. 출연 빈도 구하기
   const counts = array.reduce((pv, cv) => {
+    console.log(pv);
+    // console.log(cv);
+    // const arr = pv[cv];
+    // if (cv.length > 1) {
+    //   cv = cv.split(",");
+    //   for (const index of cv) {
+    //     console.log(cv);
+    //   }
+    // }
+    // 겹치는 값을 따로 넣을 수 있는 지 확인
     pv[cv] = (pv[cv] || 0) + 1;
+    console.log(pv);
     return pv;
   }, {});
 
   // 2. 요소와 개수를 표현하는 배열 생성 => [ [요소: 개수], [요소: 개수], ...]
   const countArr = [];
   for (let key in counts) {
+    // console.log(counts);
     countArr.push([key, counts[key]]);
   }
+
   // 3. 출현 빈도별 정리하기
   countArr.sort((first, second) => {
     // second[1] - first[1] 숫자가 같게 변함 second[1] = first[1]이렇게 되버림 ? 왜그렇지 고장 나버림 이건 이유를 찾아서 확인 해봐야할듯
@@ -89,7 +103,7 @@ const ResultPage = (props) => {
         );
       case "4":
         return (
-          <button id="Btn" key={index} value="뮤지컬" onClick={showResult}>
+          <button id="Btn" key={index} value="오페라" onClick={showResult}>
             뮤지컬/오페라
           </button>
         );
@@ -136,6 +150,7 @@ const ResultPage = (props) => {
 
   return (
     <div>
+      {/* {category.length === 0 ? <Main /> : cateoryMap} */}
       {category.length === 0 ? <ErrorPage navigate={navigate} /> : cateoryMap}
     </div>
   );

@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import Header from "../components/Header";
 
 //사용자가 결과값을 임의로 접근할 수 있기 때문에 param을 이용하여 페이지 넘기던 방식을 수정
 // map을 이용하여 똑같은 페이지 복사 붙여넣기 방식 수정
@@ -7,57 +8,49 @@ import React, { useState, useEffect, useCallback } from "react";
 const Question = (props) => {
   const { handleInterest, navigate, interest } = props;
   const [step, setStep] = useState(1);
+  const interestPrev = useRef(null);
 
   const clickBack = () => {
+    interestPrev.current = interest;
+    console.log(interestPrev);
     if (step > 1) {
       setStep((prev) => prev - 1);
-      handleInterest((prev) => [...prev].slice(0, step - 2));
+      //뒤로 갈때의 값도 바꿔야함
+      // 그 전 값을 저장해두고 뒤로가며 그 전값을 집어 넣어주는 식으로 해야할듯?
+
+      // handleInterest((prev) => [...prev].slice(0, step - 2));
+      handleInterest(interestPrev);
     } else {
       navigate("/");
     }
   };
 
-  const myPromise = new Promise((resolve, reject) => {});
-
-  // 여기 숫자 바꾸는것도 변화가 필요하네
-  // 여기 길이 비교도 qaData 넣을때 자꾸만 변동해줘야해서 불편한듯?
-  // 마지막 질문에 대한 답이 의미가 없어진다 -> interest가 값이 올라가기 전에 네비게이트로 보내기때문에
-  // 1. settime 2.promise
   const handleStore = (e) => {
-    console.log(interest.length);
     if (interest.length !== 6) {
-      handleInterest((prev) => [...prev, e.target.value]);
+      let value = e.target.value;
+      //값이 두개 이상일 경우
+      if (value.length > 1) {
+        const arr = value.split(",");
+        for (const index of arr) {
+          handleInterest((prev) => [...prev, index]);
+        }
+      } else {
+        handleInterest((prev) => [...prev, e.target.value]);
+      }
+
       setStep((prev) => prev + 1);
-      // console.log(interest.length);
     }
   };
 
   useEffect(() => {
-    if (interest.length === 6) {
+    console.log(step);
+    if (step > 6) {
       navigate("/ResultPage");
     }
-  }, [interest.length, navigate]);
+  }, [navigate, step]);
   console.log(interest);
   //흠 뭔가 이러헥 하니까 handleStore 없으면 안되가지고 불편한듯?
   // 여기 데이터에 하나하나 추가해주는것도 불편한듯?
-
-  // const handleStore = (e) => {
-  //   if (interest.length !== 5) {
-  //     handleInterest((prev) => [...prev, e.target.value]);
-  //   }
-
-  //   // console.log(interest.length);
-  // };
-
-  // useEffect(() => {
-  //   console.log(interest.length);
-  //   if (interest.length === 5) {
-  //     navigate("/ResultPage");
-  //   } else {
-  //     setStep((prev) => prev + 1);
-  //     // console.log(interest.length);
-  //   }
-  // }, [interest.length, navigate]);
 
   const qaData = [
     {
@@ -93,7 +86,7 @@ const Question = (props) => {
           questionTitle: "클래식 질문",
           id: "classic",
           event: handleStore,
-          value: 5,
+          value: [4, 5],
         },
       ],
     },
@@ -297,12 +290,12 @@ const Question = (props) => {
 
   return (
     <div>
-      <h1>문화성향테스트</h1>
+      <Header navigate={navigate} />
       {qaData.map((data, index) => {
         if (data.step === step) {
           return (
             <div key={index}>
-              <h2> 질문 {data.title}</h2>
+              <h2> {data.title}</h2>
               <h4> {data.subtitle} </h4>
               <ul>
                 {data.questionData.map((data, index) => (
