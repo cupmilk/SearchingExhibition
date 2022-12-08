@@ -8,25 +8,14 @@ import Main from "./Main";
 function getSortedArr(array) {
   // 1. 출연 빈도 구하기
   const counts = array.reduce((pv, cv) => {
-    console.log(pv);
-    // console.log(cv);
-    // const arr = pv[cv];
-    // if (cv.length > 1) {
-    //   cv = cv.split(",");
-    //   for (const index of cv) {
-    //     console.log(cv);
-    //   }
-    // }
     // 겹치는 값을 따로 넣을 수 있는 지 확인
     pv[cv] = (pv[cv] || 0) + 1;
-    console.log(pv);
     return pv;
   }, {});
 
   // 2. 요소와 개수를 표현하는 배열 생성 => [ [요소: 개수], [요소: 개수], ...]
   const countArr = [];
   for (let key in counts) {
-    // console.log(counts);
     countArr.push([key, counts[key]]);
   }
 
@@ -73,7 +62,22 @@ const ResultPage = (props) => {
 
   //요소에 포함된 갯수 만큼 보여준다
   const getCategory = useCallback(() => {
-    const modeResult = getSortedArr(interest);
+    // 여러값을 가진 interest 풀어해침
+    let flatInterest = [];
+    for (const index of interest) {
+      console.log(typeof index);
+      if (index.length > 1) {
+        for (const item of index) {
+          if (item !== ",") {
+            flatInterest.push(item);
+          }
+        }
+      } else {
+        flatInterest.push(index);
+      }
+    }
+
+    const modeResult = getSortedArr(flatInterest);
     setCategory(modeResult.modes);
   }, [interest]);
 
@@ -119,17 +123,8 @@ const ResultPage = (props) => {
     }
   };
   // 새로고침때의 오류
-  console.log(category);
 
-  //? 존나 비효율적인데;
-  const checkContents = () => {
-    category.length !== 1 ? (
-      <div>(다수) 대충 컨텐츠</div>
-    ) : (
-      <div>(다수) 대충 컨텐츠</div>
-    );
-  };
-
+  //여기는 너무 가독성이 떨어짐 수정이 필요
   const cateoryMap =
     ((<p> ㅇㅇ</p>),
     (

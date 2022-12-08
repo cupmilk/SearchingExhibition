@@ -8,18 +8,14 @@ import Header from "../components/Header";
 const Question = (props) => {
   const { handleInterest, navigate, interest } = props;
   const [step, setStep] = useState(1);
-  const interestPrev = useRef(null);
+  // const [preInterest, setPreInterest] = useState([]);
 
   const clickBack = () => {
-    interestPrev.current = interest;
-    console.log(interestPrev);
     if (step > 1) {
       setStep((prev) => prev - 1);
       //뒤로 갈때의 값도 바꿔야함
-      // 그 전 값을 저장해두고 뒤로가며 그 전값을 집어 넣어주는 식으로 해야할듯?
-
-      // handleInterest((prev) => [...prev].slice(0, step - 2));
-      handleInterest(interestPrev);
+      // 그 전 값을 저장해두고 뒤로가며 그 전값을 집어 넣어주는 식으로 해야할듯? -> 어케하농;
+      handleInterest((prev) => [...prev].slice(0, step - 2));
     } else {
       navigate("/");
     }
@@ -27,29 +23,18 @@ const Question = (props) => {
 
   const handleStore = (e) => {
     if (interest.length !== 6) {
-      let value = e.target.value;
       //값이 두개 이상일 경우
-      if (value.length > 1) {
-        const arr = value.split(",");
-        for (const index of arr) {
-          handleInterest((prev) => [...prev, index]);
-        }
-      } else {
-        handleInterest((prev) => [...prev, e.target.value]);
-      }
-
+      handleInterest((prev) => [...prev, e.target.value]);
       setStep((prev) => prev + 1);
     }
   };
 
   useEffect(() => {
-    console.log(step);
     if (step > 6) {
       navigate("/ResultPage");
     }
   }, [navigate, step]);
   console.log(interest);
-  //흠 뭔가 이러헥 하니까 handleStore 없으면 안되가지고 불편한듯?
   // 여기 데이터에 하나하나 추가해주는것도 불편한듯?
 
   const qaData = [
