@@ -65,7 +65,6 @@ const ResultPage = (props) => {
     // 여러값을 가진 interest 풀어해침
     let flatInterest = [];
     for (const index of interest) {
-      console.log(typeof index);
       if (index.length > 1) {
         for (const item of index) {
           if (item !== ",") {
@@ -125,23 +124,21 @@ const ResultPage = (props) => {
   // 새로고침때의 오류
 
   //여기는 너무 가독성이 떨어짐 수정이 필요
-  const cateoryMap =
-    ((<p> ㅇㅇ</p>),
-    (
-      <div>
-        {category.length !== 1 ? (
-          <>
-            <div>(다수) 대충 컨텐츠</div>
-            <div>{category.map((mode, index) => showBtn(mode, index))}</div>
-          </>
-        ) : (
-          <>
-            <div>(단일) 컨텐츠 </div>
-            <div>{category.map((mode, index) => showBtn(mode, index))}</div>
-          </>
-        )}
-      </div>
-    ));
+  const cateoryMap = (
+    <div>
+      {category.length !== 1 ? (
+        <>
+          <div>(다수) 대충 컨텐츠</div>
+          <div>{category.map((mode, index) => showBtn(mode, index))}</div>
+        </>
+      ) : (
+        <>
+          <div>(단일) 컨텐츠 </div>
+          <div>{category.map((mode, index) => showBtn(mode, index))}</div>
+        </>
+      )}
+    </div>
+  );
 
   return (
     <div>
