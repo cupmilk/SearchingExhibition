@@ -1,13 +1,16 @@
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyle = createGlobalStyle`
-*, *::before, *::after {
-    box-sizing: border-box;
-  }
+const mbtiColor = {
+  green: "33a474",
+  blue: "d8e9ef",
+  yellow: "ece5d5",
+  pink: "eddef4",
+};
 
-*::visited{ 
-   text-decoration: none;
-} 
+const GlobalStyle = createGlobalStyle`
+  
+body{    font-size: 22px;}
 
 
 `;
+export default GlobalStyle;
