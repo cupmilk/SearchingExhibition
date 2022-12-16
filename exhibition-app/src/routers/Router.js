@@ -22,7 +22,7 @@ const Router = () => {
   // console.log("리로드");
   return (
     <Routes>
-      <Route path="/" element={<Main />}></Route>
+      <Route path="/" element={<Main navigate={navigate} />}></Route>
 
       <Route
         path="/Question"

@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import Header from "../components/Header";
+import Mybutton from "../styles/Mybutton";
+import LayOut from "./../styles/LayOut";
+import styled from "styled-components";
 
 //사용자가 결과값을 임의로 접근할 수 있기 때문에 param을 이용하여 페이지 넘기던 방식을 수정
 // map을 이용하여 똑같은 페이지 복사 붙여넣기 방식 수정
@@ -153,36 +156,67 @@ const Question = (props) => {
   //이거 마지막 선택지 작동안함
 
   return (
-    <div>
-      <Header navigate={navigate} />
+    <QsLayOut>
+      <div className="header">
+        <Header />
+      </div>
+
       {qaData.map((data, index) => {
         if (data.step === step) {
           return (
-            <div key={index}>
+            <div key={index} className="main-content">
               <h2> {data.title}</h2>
               <h4> {data.subtitle} </h4>
-              <ul>
+              <ul className="qs-container">
                 {data.questionData.map((data, index) => (
                   <li key={index}>
-                    <button
+                    {/* <button
                       type="button"
                       onClick={data.event}
                       id={data.id}
                       value={data.value}
                     >
                       {data.questionTitle}
-                    </button>
+                    </button> */}
+                    <Mybutton
+                      color="pink"
+                      onClick={data.event}
+                      id={data.id}
+                      value={data.value}
+                    >
+                      {data.questionTitle}
+                    </Mybutton>
                   </li>
                 ))}
               </ul>
+              <button onClick={clickBack}>뒤로가기</button>
             </div>
           );
         }
         // return {}
       })}
-      <button onClick={clickBack}>뒤로가기</button>
-    </div>
+    </QsLayOut>
   );
 };
+
+const QsLayOut = styled(LayOut)`
+  .main-content {
+    & > h2 {
+      margin: 30px 0;
+    }
+
+    & > h4 {
+      font-size: 2rem;
+    }
+    .qs-container {
+      display: flex;
+      flex-direction: row;
+
+      & > li {
+        margin: 0px 15px;
+      }
+    }
+  }
+`;
 
 export default Question;
