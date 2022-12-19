@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
 
 body{ 
   font-family :"IM_Hyemin-Bold";
-  background: #d8e9ef;
+ 
   font-size: 1.5rem;
 }
 `;

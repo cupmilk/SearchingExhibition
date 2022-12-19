@@ -43,15 +43,16 @@ const Question = (props) => {
     {
       step: 1,
       title: "q1",
-      subtitle: "시각 vs 청각",
+      subtitle:
+        "완벽하게 맞는 설명보다 감각적으로 받아들이기를 선호하는 편이다.",
       questionData: [
         {
-          questionTitle: "시각",
+          questionTitle: "그렇다",
           event: handleStore,
           value: [1],
         },
         {
-          questionTitle: "청각",
+          questionTitle: "아니다",
           event: handleStore,
           value: [2, 4, 5],
         },
@@ -165,9 +166,12 @@ const Question = (props) => {
         if (data.step === step) {
           return (
             <div key={index} className="main-content">
-              <h2> {data.title}</h2>
-              <h4> {data.subtitle} </h4>
-              <ul className="qs-container">
+              <div className="qs-container">
+                <h2> {data.title}</h2>
+                <h4> {data.subtitle} </h4>
+              </div>
+
+              <ul className="ans-container">
                 {data.questionData.map((data, index) => (
                   <li key={index}>
                     {/* <button
@@ -180,6 +184,7 @@ const Question = (props) => {
                     </button> */}
                     <Mybutton
                       color="pink"
+                      size="large"
                       onClick={data.event}
                       id={data.id}
                       value={data.value}
@@ -189,33 +194,56 @@ const Question = (props) => {
                   </li>
                 ))}
               </ul>
-              <button onClick={clickBack}>뒤로가기</button>
             </div>
           );
         }
         // return {}
       })}
+      <div className="footer">
+        <Mybutton size="large" className="back-btn" onClick={clickBack}>
+          뒤로가기
+        </Mybutton>
+      </div>
     </QsLayOut>
   );
 };
 
 const QsLayOut = styled(LayOut)`
   .main-content {
-    & > h2 {
-      margin: 30px 0;
-    }
-
-    & > h4 {
-      font-size: 2rem;
-    }
     .qs-container {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0;
 
-      & > li {
-        margin: 0px 15px;
+      & > h2 {
+        margin: 30px 0;
+      }
+
+      & > h4 {
+        width: 100%;
+        font-size: 1.75rem;
+        border: 0px solid;
+        border-radius: 15px;
+        background: white;
       }
     }
+
+    .ans-container {
+      display: flex;
+      flex-direction: row;
+      margin-top: 25px;
+
+      & > li {
+        margin: 0 30px;
+      }
+    }
+  }
+  .back-btn {
+    width: 150px;
+
+    border: 0px solid;
   }
 `;
 

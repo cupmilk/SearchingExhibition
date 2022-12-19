@@ -6,34 +6,7 @@ import Mybutton from "./../styles/Mybutton";
 import LayOut from "./../styles/LayOut";
 import theme from "./../styles/theme";
 import { ThemeProvider } from "styled-components";
-
-// const Box = styled.div`
-//   width: 100vw;
-//   height: calc(100vh - 50px);
-//   // margin-top: 50px;
-
-//   display: flex;
-//   flex-direction: column;
-
-//   align-items: center;
-
-//   justify-content: center;
-//   // background: red;
-
-//   .mainImg {
-//     width: 300px;
-//     height: 300px;
-//   }
-
-//   .title_container {
-//     margin: 0 30px;
-//   }
-
-//   .startLink {
-//     text-decoration: none;
-//     color: inherit;
-//   }
-// `;
+import Square from "../img/Square";
 
 const Main = (props) => {
   const { navigate } = props;
@@ -49,7 +22,6 @@ const Main = (props) => {
           <div className="header">
             <Header />
           </div>
-
           <div className="main-content">
             <img
               className="mainImg"
