@@ -61,15 +61,15 @@ const Question = (props) => {
     {
       step: 2,
       title: "q2",
-      subtitle: "웅장한 vs 경쾌한",
+      subtitle: "주로 가사가 없는 음악을 듣는다 ",
       questionData: [
         {
-          questionTitle: "웅장한",
+          questionTitle: "그렇다",
           event: handleStore,
           value: [5],
         },
         {
-          questionTitle: "경쾌한",
+          questionTitle: "아니다",
           event: handleStore,
           value: [2, 4],
         },
@@ -78,15 +78,15 @@ const Question = (props) => {
     {
       step: 3,
       title: "q3",
-      subtitle: "차분한 vs 흥미진진한",
+      subtitle: "활기찬 분위기보단 조용하고 차분한 분위기를 선호한다",
       questionData: [
         {
-          questionTitle: "차분한",
+          questionTitle: "그렇다",
           event: handleStore,
-          value: [1, 3, 5],
+          value: [3],
         },
         {
-          questionTitle: "흥미진진한",
+          questionTitle: "아니다",
           event: handleStore,
           value: [2, 4],
         },
@@ -94,33 +94,33 @@ const Question = (props) => {
     },
     {
       step: 4,
-      title: "q1",
-      subtitle: "트렌디 vs 전통적인",
+      title: "q4",
+      subtitle: "트렌드에 민감하여 즉각적으로 반응하는 편이다",
       questionData: [
         {
-          questionTitle: "트렌디",
+          questionTitle: "그렇다",
           event: handleStore,
-          value: [2, 4],
+          value: [2],
         },
         {
-          questionTitle: "전통적인",
+          questionTitle: "아니다",
           event: handleStore,
-          value: [5],
+          value: [4, 5],
         },
       ],
     },
     {
       step: 5,
       title: "q5",
-      subtitle: "지식 vs 감각",
+      subtitle: "???",
       questionData: [
         {
-          questionTitle: "지식",
+          questionTitle: "그렇다",
           event: handleStore,
-          value: [1],
+          value: [3],
         },
         {
-          questionTitle: "감각",
+          questionTitle: "아니다",
           event: handleStore,
           value: [2, 3, 4, 5],
         },
@@ -155,7 +155,7 @@ const Question = (props) => {
   }, [resetValue]);
 
   //이거 마지막 선택지 작동안함
-
+  console.log(interest);
   return (
     <QsLayOut>
       <div className="header">
@@ -200,7 +200,12 @@ const Question = (props) => {
         // return {}
       })}
       <div className="footer">
-        <Mybutton size="large" className="back-btn" onClick={clickBack}>
+        <Mybutton
+          size="large"
+          color="yellow"
+          className="back-btn"
+          onClick={clickBack}
+        >
           뒤로가기
         </Mybutton>
       </div>

@@ -22,6 +22,7 @@ const Main = (props) => {
           <div className="header">
             <Header />
           </div>
+
           <div className="main-content">
             <img
               className="mainImg"

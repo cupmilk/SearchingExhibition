@@ -2,63 +2,40 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import styled from "styled-components";
-import App from "./../App";
-import Main from "./Main";
+import Mode from "./../components/Mode";
+import ResultBtn from "../components/ResultBtn";
+import ResultTxt from "../components/ResultTxt";
 
-function getSortedArr(array) {
-  // 1. 출연 빈도 구하기
-  const counts = array.reduce((pv, cv) => {
-    // 겹치는 값을 따로 넣을 수 있는 지 확인
-    pv[cv] = (pv[cv] || 0) + 1;
-    return pv;
-  }, {});
+//result Page에서 하는거 -> 레이아웃만 있으면 좋겠어
+//1. category분류
+//2. category에 따른 component 출력 -> 아무리 생각해도 전체구성? 이런건 똑같고 이미지랑 txt만 달라는데 여러개를 만들 필요는 없지
+// 근데 여기서 발생되는게 이미지를 넣는데 component를 map으로 돌리니가 이미지가 겹쳐
+// 값이 여러개가 나오면 여러개의 이미지가 아니라 한개의 이미지 + 여러개의 버튼을 원한단 말이지
+//3. 전체화면 구성
 
-  // 2. 요소와 개수를 표현하는 배열 생성 => [ [요소: 개수], [요소: 개수], ...]
-  const countArr = [];
-  for (let key in counts) {
-    countArr.push([key, counts[key]]);
-  }
-
-  // 3. 출현 빈도별 정리하기
-  countArr.sort((first, second) => {
-    // second[1] - first[1] 숫자가 같게 변함 second[1] = first[1]이렇게 되버림 ? 왜그렇지 고장 나버림 이건 이유를 찾아서 확인 해봐야할듯
-    //  first[1] - second[1] 이경우에만 정상적으로 작동 근데 왜 그렇게 되는지 모름
-    return first[1] - second[1];
-  });
-
-  let repeatMode = 0; // 최빈값이 반복된 횟수
-  let modes = []; //최빈값
-
-  for (const item in countArr) {
-    // 배열속 배열의 2번재값 = 2.의 개수
-    //
-    if (countArr[item][1] > repeatMode) {
-      // 가장 많이 반복된 횟수를 넣는다
-      repeatMode = countArr[item][1];
-      // 가장 많이 반복됫 회수의 요소를 집어 넣는다
-      modes = [countArr[item][0]];
-    } else if ((countArr[item][1] = repeatMode)) {
-      // 가장 많이 반복된 횟수가 동일할경우 배열에 집어넣는다.
-      modes.push(countArr[item][0]);
-    }
-  }
-
-  const result = {
-    repeatMode,
-    modes,
-    countArr,
-  };
-
-  return result;
-}
+// logic ( 최빈값이 뭔지 ,중복인지 아닌지 ) ->  img, doc, button
 
 const ResultPage = (props) => {
   const { interest, navigate } = props;
   const [category, setCategory] = useState([]);
+  const [interestType, setInterestType] = useState({
+    value: null,
+    img: null,
+    type: null,
+    info: null,
+    interest: null,
+    character: null,
+    recommand: null,
+    color: null,
+  });
 
-  const showResult = (e) => {
-    navigate(`/recommand?catrgory=${e.target.value}`);
-  };
+  //카테고리로 하나 -> logic( 1. (최반값 설정 -> 최빈값에 따른 category설정) -> 그거에따른 interest)
+  //img로 하나 -> 그냥 이미지 출력
+  //그냥 doc -> 출력
+
+  //여기에 interesttype을 넣어야함
+  // 그래서 이미지 + txt
+  // 버튼 따로 나올 수 있도록
 
   //요소에 포함된 갯수 만큼 보여준다
   const getCategory = useCallback(() => {
@@ -76,74 +53,200 @@ const ResultPage = (props) => {
       }
     }
 
-    const modeResult = getSortedArr(flatInterest);
+    const modeResult = Mode(flatInterest);
     setCategory(modeResult.modes);
   }, [interest]);
+
+  console.log(category);
+
+  // category별 다른 버튼 출력 -> 1.category분리  ->switch로 구현 할라고 하는건데  2.버튼 출력
+
+  // const matchingInterest = useCallback(
+  //   (mode) => {
+  //     console.dir(mode);
+  //     if ((mode.length = 1)) {
+  //       const modeValue = mode[0];
+  //       switch (modeValue) {
+  //         case "1":
+  //           return setInterestType((prev) => ({
+  //             value: "문화교양",
+  //             img: "https://cdn.pixabay.com/photo/2018/09/25/11/45/pixel-cells-3702062_960_720.png",
+  //             type: "전시유형 뭐시기",
+  //             info: "대충 이 유형에 대한 설명 주저리 주저리",
+  //             interest: "대충 뭘 좋아하는지에 대해 설명",
+  //             character: "대충 특징 설명",
+  //             recommand: "대충 이런게 좋다 설명",
+  //             color: "유형에 맞는 색깔",
+  //           }));
+  //         case "2":
+  //           return setInterestType((prev) => ({
+  //             value: "전시",
+  //             img: "https://cdn.pixabay.com/photo/2018/09/24/08/31/pixel-cells-3699332_960_720.png",
+  //             type: "전시유형 뭐시기",
+  //             info: "대충 이 유형에 대한 설명 주저리 주저리",
+  //             interest: "대충 뭘 좋아하는지에 대해 설명",
+  //             character: "대충 특징 설명",
+  //             recommand: "대충 이런게 좋다 설명",
+  //             color: "유형에 맞는 색깔",
+  //           }));
+
+  //         case "3":
+  //           return setInterestType((prev) => ({
+  //             value: "콘서트",
+  //             img: "https://cdn.pixabay.com/photo/2019/02/04/08/38/pixel-cells-3974182_960_720.png",
+  //             type: "전시유형 뭐시기",
+  //             info: "대충 이 유형에 대한 설명 주저리 주저리",
+  //             interest: "대충 뭘 좋아하는지에 대해 설명",
+  //             character: "대충 특징 설명",
+  //             recommand: "대충 이런게 좋다 설명",
+  //             color: "유형에 맞는 색깔",
+  //           }));
+  //         case "4":
+  //           return setInterestType((prev) => ({
+  //             value: "뮤지컬",
+  //             img: "https://cdn.pixabay.com/photo/2021/05/05/05/10/pixel-cells-6230200_960_720.png",
+  //             type: "전시유형 뭐시기",
+  //             info: "대충 이 유형에 대한 설명 주저리 주저리",
+  //             interest: "대충 뭘 좋아하는지에 대해 설명",
+  //             character: "대충 특징 설명",
+  //             recommand: "대충 이런게 좋다 설명",
+  //             color: "유형에 맞는 색깔",
+  //           }));
+  //         case "5":
+  //           return setInterestType((prev) => ({
+  //             value: "클래식",
+  //             img: "https://cdn.pixabay.com/photo/2018/09/24/08/31/pixel-cells-3699332_960_720.png",
+  //             type: "전시유형 뭐시기",
+  //             info: "대충 이 유형에 대한 설명 주저리 주저리",
+  //             like: "대충 뭘 좋아하는지에 대해 설명",
+  //             character: "대충 특징 설명",
+  //             recommand: "대충 이런게 좋다 설명",
+  //             color: "유형에 맞는 색깔",
+  //           }));
+  //         default:
+  //           //오류페이지 mainpage로 가도록
+  //           return <ErrorPage navigate={navigate} />;
+  //       }
+  //     } else {
+  //       setCategory({});
+  //     }
+  //   },
+  //   [navigate]
+  // );
+
+  // 작동안함
+  const showImg = () => {};
+  const showText = () => {
+    return <ResultTxt category={category} />;
+  };
 
   useEffect(() => {
     getCategory();
   }, [getCategory]);
 
-  const showBtn = (mode, index) => {
-    switch (mode) {
-      case "1":
-        return (
-          <button id="Btn" key={index} value="문화교양" onClick={showResult}>
-            문화교양/강좌
-          </button>
-        );
-      case "2":
-        return (
-          <button id="Btn" key={index} value="콘서트" onClick={showResult}>
-            콘서트
-          </button>
-        );
-      case "3":
-        return (
-          <button id="Btn" key={index} value="전시" onClick={showResult}>
-            전시/미술
-          </button>
-        );
-      case "4":
-        return (
-          <button id="Btn" key={index} value="오페라" onClick={showResult}>
-            뮤지컬/오페라
-          </button>
-        );
-      case "5":
-        return (
-          <button id="Btn" key={index} value="클래식" onClick={showResult}>
-            클래식
-          </button>
-        );
-      default:
-        //오류페이지 mainpage로 가도록
-        return <ErrorPage navigate={navigate} />;
-    }
-  };
-  // 새로고침때의 오류
+  //버튼을 여러개 하기 위해서는 map을 돌려서 여러개가 나타나게 해야한다
+  // map으로 돌리기 위해서는 여러개가 있어야하는데 값은 하나만 넣을 수 있다.
+  // 그냥 값이 여러개일때는 여러개가 사용될수있는 모양의 함수를만들면 되잖아?
+
+  //방법 1 : value와
+  // useEffect(() => {
+  //   if (category.length !== 1) {
+  //     matchingInterest(category[0]);
+  //   } else {
+  //     mupltiInterest(category);
+  //   }
+
+  //   // console.log(category);
+  // }, [matchingInterest, category]);
 
   //여기는 너무 가독성이 떨어짐 수정이 필요
-  const cateoryMap = (
-    <div>
-      {category.length !== 1 ? (
-        <>
-          <div>(다수) 대충 컨텐츠</div>
-          <div>{category.map((mode, index) => showBtn(mode, index))}</div>
-        </>
-      ) : (
-        <>
-          <div>(단일) 컨텐츠 </div>
-          <div>{category.map((mode, index) => showBtn(mode, index))}</div>
-        </>
-      )}
-    </div>
-  );
 
+  //1. 여러개의 값일땔
+  // 2. 각각의 이미지와 내용 -> 다수의 값이 = 설명, 이미지 => 공통된 하나
+  // 3. 즉 map돌리는건 버튼만 돌리면 된다.
+  const showBtn = () => {
+    //고정된 설명을 넣어야됌
+    return (
+      <div>
+        {category.map((mode, index) => (
+          <ResultBtn mode={mode} multiple={true} />
+        ))}
+      </div>
+    );
+  };
+
+  // <div>
+  //   {category.length !== 1 ? (
+  //     <>
+  //       {/* <img
+  //         src="https://cdn.pixabay.com/photo/2021/05/05/04/42/pixel-cells-6230153_960_720.png"
+  //         width="300px"
+  //         height="300px"
+  //         alt=""
+  //       /> */}
+
+  //       <div>
+  //         {/* 여기에 이미지를 넣는게 있겠지  */}
+  //         {category.map((mode, index) => (
+  //           <ResultType mode={mode} multiple={true} />
+  //         ))}
+  //       </div>
+  //     </>
+  //   ) : (
+  //     <>
+  //       {/* <div>(단일) 컨텐츠 </div> */}
+  //       <div>
+  //         {category.map((mode, index) => (
+  //           <ResultType mode={mode} multiple={false} />
+  //         ))}
+  //         {category.map((mode, index) => console.log(index))}
+  //       </div>
+  //     </>
+  //   )}
+  // </div>
+
+  console.log(category);
   return (
     <div>
-      {/* {category.length === 0 ? <Main /> : cateoryMap} */}
-      {category.length === 0 ? <ErrorPage navigate={navigate} /> : cateoryMap}
+      {/* {category.length === 0 ? <ErrorPage navigate={navigate} /> : cateoryMap} */}
+
+      {category ? (
+        <div>
+          <section>
+            <ResultTxt category={category} />
+          </section>
+          <section>{showBtn()}</section>
+        </div>
+      ) : (
+        <ErrorPage navigate={navigate} />
+      )}
+      {/* 
+      {interest ? (
+        <>
+          <img src={interestType.img} width="300px" height="300px" alt="" />
+          <section>
+            <h4>{interestType.character}</h4>
+            <span>{interestType.info}</span>
+          </section>
+          <section>
+            <h4>{interestType.like}</h4>
+            <p></p>
+          </section>
+          <section>
+            <h4>{interestType.type}</h4>
+            <div>
+              {interestType.recommand}
+              {category.length > 1 ? (
+                cateoryMap
+              ) : (
+                <ResultBtn result={interestType.value} />
+              )}
+            </div>
+          </section>
+        </>
+      ) : (
+        <ErrorPage navigate={navigate} />
+      )} */}
     </div>
   );
 };
