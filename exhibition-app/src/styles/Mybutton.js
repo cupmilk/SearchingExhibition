@@ -42,7 +42,6 @@ const fullWidthStyle = css`
       width: 100%;
       justify-content: center;
       & + & {
-        margin-left: 0;
         margin-top: 1rem;
       }
     `}
@@ -62,6 +61,7 @@ const StyledButton = styled.button`
   cursor: pointer;
   padding-left: 1rem;
   padding-right: 1rem;
+  margin: 0 15px;
 
   /* 크기 */
   ${sizeStyles}
@@ -71,7 +71,7 @@ const StyledButton = styled.button`
 
   /* 기타 */
   & + & {
-    margin-left: 1rem;
+    margin-top: 1rem;
   }
 
   ${fullWidthStyle}

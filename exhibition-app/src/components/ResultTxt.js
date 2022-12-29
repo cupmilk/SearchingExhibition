@@ -4,116 +4,121 @@ import Mybutton from "./../styles/Mybutton";
 import ErrorPage from "./../pages/ErrorPage";
 import styled from "styled-components";
 import LayOut from "./../styles/LayOut";
+import theme from "./../styles/theme";
+import { css } from "styled-components";
+// 색깔만 정하면 될듯
 
-//이 컴포넌트는 단순하게 버튼만 나오도록 만들자
-const resultCategoryInfo = new Map([
-  [
-    "1",
-    {
-      img: "https://cdn.pixabay.com/photo/2021/05/05/04/42/pixel-cells-6230153_960_720.png",
-      type: "멀티",
-      info: "멀티",
-      interest: "멀티",
-      character: "멀티",
-      recommand: "멀티",
-      color: "멀티",
-    },
-  ],
-  [
-    "2",
-    {
-      value: "문화교양",
-      img: "https://cdn.pixabay.com/photo/2018/09/25/11/45/pixel-cells-3702062_960_720.png",
-      type: "전시유형 뭐시기",
-      info: "대충 이 유형에 대한 설명 주저리 주저리",
-      interest: "대충 뭘 좋아하는지에 대해 설명",
-      character: "대충 특징 설명",
-      recommand: "대충 이런게 좋다 설명",
-      color: "유형에 맞는 색깔",
-    },
-  ],
-  [
-    "3",
-    {
-      value: "전시",
-      img: "https://cdn.pixabay.com/photo/2018/09/24/08/31/pixel-cells-3699332_960_720.png",
-      type: "전시유형 뭐시기",
-      info: "대충 이 유형에 대한 설명 주저리 주저리",
-      interest: "대충 뭘 좋아하는지에 대해 설명",
-      character: "대충 특징 설명",
-      recommand: "대충 이런게 좋다 설명",
-      color: "유형에 맞는 색깔",
-    },
-  ],
-  [
-    "4",
-    {
-      value: "콘서트",
-      img: "https://cdn.pixabay.com/photo/2019/02/04/08/38/pixel-cells-3974182_960_720.png",
-      type: "전시유형 뭐시기",
-      info: "대충 이 유형에 대한 설명 주저리 주저리",
-      interest: "대충 뭘 좋아하는지에 대해 설명",
-      character: "대충 특징 설명",
-      recommand: "대충 이런게 좋다 설명",
-      color: "유형에 맞는 색깔",
-    },
-  ],
-  [
-    "5",
-    {
-      value: "클래식",
-      img: "https://cdn.pixabay.com/photo/2018/09/24/08/31/pixel-cells-3699332_960_720.png",
-      type: "전시유형 뭐시기",
-      info: "대충 이 유형에 대한 설명 주저리 주저리",
-      like: "대충 뭘 좋아하는지에 대해 설명",
-      character: "대충 특징 설명",
-      recommand: "대충 이런게 좋다 설명",
-      color: "유형에 맞는 색깔",
-    },
-  ],
-]);
+const { deepGreen, green, yellow, blue, pink, purple } = theme.palette;
+//이게 ResultBtn의 btnInfoMap이랑 연관이 되어있어서 잘못하면 2중으로 봐야하기 때문에 resultPage에서 props로 내릴려고 했으나
+// 그렇게 할경우 최빈값이 2개가 나올경우 오류가 발생함 , 우선은 layout완성에 집중
 
 const ResultTxt = (props) => {
   // ResultPage에서 interestType.value
-  const { category } = props;
-  const [interestType, setInterestType] = useState({});
+  const { category, resultCategoryInfo } = props;
 
-  const matchingCategory = useCallback(() => {
-    if (category.length === 1) {
-      setInterestType(resultCategoryInfo.get(category[0]));
-    } else {
-      setInterestType({
-        img: "https://cdn.pixabay.com/photo/2021/05/05/04/42/pixel-cells-6230153_960_720.png",
-        type: "멀티",
-        info: "멀티",
-        interest: "멀티",
-        character: "멀티",
-        recommand: "멀티",
-        color: "멀티",
-      });
-    }
-  }, [category, setInterestType]);
+  // 이렇게 말고 default로 가능한가?
+  let interestType = {};
+  if (category.length === 1) {
+    interestType = resultCategoryInfo.get(category[0]);
+  } else if (category.length > 1) {
+    interestType = {
+      value: "멀티", //있을 필요가 있나? 구분때문에 넣어두긴 하는데
+      img: "https://cdn.pixabay.com/photo/2021/05/05/04/42/pixel-cells-6230153_960_720.png",
+      character: "다관심자",
+      info: "하나의 장르에 얽매이지 않는 수많은 관심사를 가졌습니다. 그렇기에 문화를 즐기는 방식도 다양합니다. ",
+      interest: "멀티",
+      recommand:
+        "여러가지가 혼합된 경험을 하느것을 추천드려요, 다양한 장르에 있는 관심들이 하나도 혼합된 새로운 형태의 공연을 추천드립니다.",
+      color: `${deepGreen}`,
+    };
+  }
 
-  useEffect(() => {
-    matchingCategory();
-  }, [matchingCategory]);
-
+  if (!interestType) {
+    throw console.log("interest없음");
+  }
+  console.log(interestType);
   return (
-    <div>
-      <img src={interestType.img} width="300px" height="300px" alt="" />
-      <section>
-        <h4>{interestType.character}</h4>
-        <span>{interestType.info}</span>
+    <TxtContainer>
+      <section className="character_info">
+        <h2>{interestType.character}</h2>
+        <img src={interestType.img} width="300px" height="300px" alt="" />
       </section>
-      <section>
-        <h4>{interestType.like}</h4>
-        <p></p>
-      </section>
-      <section>
-        <h4>{interestType.type}</h4>
-      </section>
-    </div>
+
+      <div className="main_description">
+        <section className="info_section">
+          <IndexTitle color={interestType.color}>특징</IndexTitle>
+          <p>{interestType.info}</p>
+        </section>
+
+        <section className="recommand_section">
+          <IndexTitle color={interestType.color}>선호하는 장르</IndexTitle>
+          <p>{interestType.recommand}</p>
+        </section>
+      </div>
+    </TxtContainer>
   );
 };
+
+const IndexTitle = styled.h2`
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  height: 35px;
+  font-size: 1.35rem;
+
+  padding: 0 15px;
+  border: 0px solid;
+  border-radius: 20px;
+  background: ${(props) => props.color || "red"};
+  color: white;
+`;
+
+const TxtContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: 125%;
+
+  .character_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    > h2 {
+      font-size: 2rem;
+      padding: 5% 0;
+    }
+  }
+
+  .type_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 15px;
+  }
+
+  .main_description {
+    // 넓이가 800px이상부터는 width : 75%로 하는것이 적당해보임
+    // 넓이 1000px 이상부터 크기 고정
+    // width : 100%
+    max-width: 850px;
+    padding: 0 15px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.25rem;
+    .info_section {
+    }
+    .recommand_section {
+    }
+  }
+`;
 
 export default ResultTxt;

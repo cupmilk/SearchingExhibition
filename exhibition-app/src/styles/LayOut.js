@@ -21,7 +21,7 @@ const BasicLayOut = styled.div`
     justify-content: center;
     align-items: center;
     border: 0px solid;
-    background: #33a474;
+    background: ${theme.palette.deepGreen};
     //폴리곤 모형
     clip-path: polygon(
       0 0,
@@ -40,6 +40,7 @@ const BasicLayOut = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 0 15px;
   }
   .footer {
     grid-area: footer;

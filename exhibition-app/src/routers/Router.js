@@ -10,6 +10,8 @@ import ErrorPage from "../pages/ErrorPage";
 const Router = () => {
   //[exhibition,exhibition, exhibition, consert ] => exhibition
   //[1,2,3].length랑 비교해서 pop 으로 지우기
+
+  // useConText를 이용해서 intereset값 관리하기
   const [interest, SetInterest] = useState([]);
 
   const QURL = "/Question";
