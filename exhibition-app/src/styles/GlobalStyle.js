@@ -11,6 +11,7 @@ body{
   font-family :"IM_Hyemin-Bold";
  
   font-size: 1.5rem;
+  // background : #f5f5f7;
 }
 `;
 

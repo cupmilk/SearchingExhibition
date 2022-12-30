@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import Mybutton from "../styles/Mybutton";
 import LayOut from "./../styles/LayOut";
 import styled from "styled-components";
+import theme from "../styles/theme";
 
 //사용자가 결과값을 임의로 접근할 수 있기 때문에 param을 이용하여 페이지 넘기던 방식을 수정
 // map을 이용하여 똑같은 페이지 복사 붙여넣기 방식 수정
@@ -144,7 +145,6 @@ const Question = (props) => {
       ],
     },
   ];
-
   //prorps를 가져오는거라서 넣어줘야하는데 넣으면 한무루프가 되서 쩝..
   const resetValue = useCallback(() => {
     handleInterest([]);

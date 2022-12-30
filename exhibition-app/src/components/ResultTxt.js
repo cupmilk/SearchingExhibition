@@ -8,7 +8,7 @@ import theme from "./../styles/theme";
 import { css } from "styled-components";
 // 색깔만 정하면 될듯
 
-const { deepGreen, green, yellow, blue, pink, purple } = theme.palette;
+const { deepGreen, green, yellow, blue, pink, purple, grey } = theme.palette;
 //이게 ResultBtn의 btnInfoMap이랑 연관이 되어있어서 잘못하면 2중으로 봐야하기 때문에 resultPage에서 props로 내릴려고 했으나
 // 그렇게 할경우 최빈값이 2개가 나올경우 오류가 발생함 , 우선은 layout완성에 집중
 
@@ -29,18 +29,18 @@ const ResultTxt = (props) => {
       interest: "멀티",
       recommand:
         "여러가지가 혼합된 경험을 하느것을 추천드려요, 다양한 장르에 있는 관심들이 하나도 혼합된 새로운 형태의 공연을 추천드립니다.",
-      color: `${deepGreen}`,
+      color: "green",
     };
   }
 
   if (!interestType) {
     throw console.log("interest없음");
   }
-  console.log(interestType);
+
   return (
     <TxtContainer>
       <section className="character_info">
-        <h2>{interestType.character}</h2>
+        <h1>{interestType.character}</h1>
         <img src={interestType.img} width="300px" height="300px" alt="" />
       </section>
 
@@ -59,6 +59,16 @@ const ResultTxt = (props) => {
   );
 };
 
+const colorStyles = css`
+  ${({ theme, color }) => {
+    const selected = theme.palette[color];
+    // console.log(selected);
+    return css`
+      background: ${selected};
+    `;
+  }}
+`;
+
 const IndexTitle = styled.h2`
   display: flex;
   align-items: center;
@@ -69,8 +79,9 @@ const IndexTitle = styled.h2`
   padding: 0 15px;
   border: 0px solid;
   border-radius: 20px;
-  background: ${(props) => props.color || "red"};
-  color: white;
+
+  /* 색상 */
+  ${colorStyles}// color: white;
 `;
 
 const TxtContainer = styled.div`
@@ -86,19 +97,10 @@ const TxtContainer = styled.div`
     justify-content: center;
     align-items: center;
 
-    > h2 {
+    > h1 {
       font-size: 2rem;
       padding: 5% 0;
     }
-  }
-
-  .type_info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    margin-bottom: 15px;
   }
 
   .main_description {
@@ -115,6 +117,9 @@ const TxtContainer = styled.div`
 
     font-size: 1.25rem;
     .info_section {
+      background: #fff;
+
+      // box-shadow: 2px 4px 12px rgb(0 0 0 / 8%);
     }
     .recommand_section {
     }

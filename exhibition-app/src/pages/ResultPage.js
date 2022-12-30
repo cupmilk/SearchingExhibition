@@ -116,12 +116,6 @@ const ResultPage = (props) => {
     setCategory(modeResult.modes);
   }, [interest]);
 
-  const showText = () => {
-    return (
-      <ResultTxt category={category} resultCategoryInfo={resultCategoryInfo} />
-    );
-  };
-
   useEffect(() => {
     getCategory();
   }, [getCategory]);

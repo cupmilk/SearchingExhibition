@@ -12,6 +12,13 @@ const colorStyles = css`
     `;
   }}
 `;
+// const colorStyles = css`
+//   ${({ theme, color }) => {
+//     return css`
+//       background: ${color};
+//     `;
+//   }}
+// `;
 
 const sizes = {
   large: {
@@ -67,7 +74,7 @@ const StyledButton = styled.button`
   ${sizeStyles}
 
   /* 색상 */
-  ${colorStyles}
+ ${colorStyles} 
 
   /* 기타 */
   & + & {

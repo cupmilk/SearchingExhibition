@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import ListTransForm from "../components/ListTransForm";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
+import styled from "styled-components";
 
 const RecommandPage = (props) => {
   const { navigate } = props;
@@ -72,18 +73,18 @@ const RecommandPage = (props) => {
     return (
       apiDatas &&
       apiDatas.slice(0, max).map((apiData, index) => (
-        <div key={index}>
+        <li>
           <ListTransForm apiData={apiData} />
-        </div>
+        </li>
       ))
     );
   };
 
-  console.log(apiDatas);
-
   return (
     <div>
-      <div>{viewMore(listNum)}</div>
+      <div>
+        <ListLayOut>{viewMore(listNum)}</ListLayOut>
+      </div>
       <div>
         {apiDatas.length >= listNum * 6 ? (
           <button id="viewMore" onClick={addNum}>
@@ -97,5 +98,20 @@ const RecommandPage = (props) => {
     </div>
   );
 };
+const ListLayOut = styled.ul`
+  display: grid;
+  grid: ". . ";
+`;
+
+const RecommandLayOut = styled.div`
+  gap: 15px;
+  width: 100vw;
+  height: 100vh;
+  grid-template-columns: 1fr 10fr 1fr;
+  grid-template-rows: 75px 1fr 75px;
+
+  @media (max-width: 400px) {
+  }
+`;
 
 export default RecommandPage;
