@@ -84,6 +84,7 @@ const resultCategoryInfo = new Map([
     },
   ],
 ]);
+
 const ResultPage = (props) => {
   const { interest, navigate } = props;
   const [category, setCategory] = useState([]);

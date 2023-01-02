@@ -8,7 +8,6 @@ import theme from "./../styles/theme";
 import { css } from "styled-components";
 // 색깔만 정하면 될듯
 
-const { deepGreen, green, yellow, blue, pink, purple, grey } = theme.palette;
 //이게 ResultBtn의 btnInfoMap이랑 연관이 되어있어서 잘못하면 2중으로 봐야하기 때문에 resultPage에서 props로 내릴려고 했으나
 // 그렇게 할경우 최빈값이 2개가 나올경우 오류가 발생함 , 우선은 layout완성에 집중
 

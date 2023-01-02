@@ -6,7 +6,6 @@ import theme from "./theme";
 const colorStyles = css`
   ${({ theme, color }) => {
     const selected = theme.palette[color];
-    // console.log(selected);
     return css`
       background: ${selected};
     `;

@@ -3,6 +3,47 @@ import ListTransForm from "../components/ListTransForm";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import Header from "./../components/Header";
+import theme from "../styles/theme";
+import Mybutton from "./../styles/Mybutton";
+
+const categoryColors = new Map([
+  [
+    "문화교양",
+    {
+      theme: `${theme.palette.deepGreen}`,
+      btn: `${theme.palette.green}`,
+    },
+  ],
+  [
+    "전시",
+    {
+      theme: `${theme.palette.deepGreen}`,
+      btn: `${theme.palette.green}`,
+    },
+  ],
+  [
+    "콘서트",
+    {
+      theme: `${theme.palette.deepYellow}`,
+      btn: `${theme.palette.yellow}`,
+    },
+  ],
+  [
+    "뮤지컬",
+    {
+      theme: `${theme.palette.deepBlue}`,
+      btn: `${theme.palette.blue}`,
+    },
+  ],
+  [
+    "클래식",
+    {
+      theme: `${theme.palette.deepPink}`,
+      btn: `${theme.palette.pink}`,
+    },
+  ],
+]);
 
 const RecommandPage = (props) => {
   const { navigate } = props;
@@ -12,7 +53,6 @@ const RecommandPage = (props) => {
   const [apiDatas, setApiDatas] = useState([]);
   const [newData, setNewData] = useState(null);
   const [listNum, setListNum] = useState(1);
-
   const getData = useCallback(async () => {
     try {
       const URL =
@@ -20,9 +60,6 @@ const RecommandPage = (props) => {
 
       const sendData = await axios.get(URL + `${category} `);
       const result = await sendData.data;
-
-      console.log(result.culturalEventInfo);
-
       setNewData(result.culturalEventInfo);
     } catch (error) {
       console.log(error);
@@ -73,44 +110,97 @@ const RecommandPage = (props) => {
     return (
       apiDatas &&
       apiDatas.slice(0, max).map((apiData, index) => (
-        <li>
-          <ListTransForm apiData={apiData} />
-        </li>
+        <ul>
+          <li key={index}>
+            <ListTransForm apiData={apiData} />
+          </li>
+        </ul>
       ))
     );
   };
 
+  const status = categoryColors.get(category);
+  if (!status) {
+    throw console.log("mode없음");
+  }
+  const { theme, btn } = status;
+
+  console.log(status);
   return (
-    <div>
-      <div>
+    <RecommandLayOut>
+      <div className="header" color={theme}>
+        <Header />
+      </div>
+
+      <div className="list_container">
         <ListLayOut>{viewMore(listNum)}</ListLayOut>
       </div>
-      <div>
-        {apiDatas.length >= listNum * 6 ? (
-          <button id="viewMore" onClick={addNum}>
-            더보기
-          </button>
-        ) : null}
+      <div className="btn_container">
+        <section>
+          {apiDatas.length > listNum * 6 ? (
+            <RecommandBtn id="viewMore" color={btn} onClick={addNum}>
+              더보기
+            </RecommandBtn>
+          ) : null}
+        </section>
+        <section>
+          <RecommandBtn color={btn} onClick={goMain}>
+            {" "}
+            테스트 다시하기{" "}
+          </RecommandBtn>
+        </section>
       </div>
-      <div>
-        <button onClick={goMain}> 테스트 다시하기 </button>
-      </div>
-    </div>
+    </RecommandLayOut>
   );
 };
-const ListLayOut = styled.ul`
-  display: grid;
-  grid: ". . ";
+
+// 테마 색깔 보류
+
+const ListLayOut = styled.div`
+  @media (min-width: 450px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 15px;
+  }
+`;
+const RecommandBtn = styled(Mybutton)`
+  //배경색
+  background: ${(props) => props.color || "black"};
 `;
 
 const RecommandLayOut = styled.div`
-  gap: 15px;
   width: 100vw;
-  height: 100vh;
-  grid-template-columns: 1fr 10fr 1fr;
-  grid-template-rows: 75px 1fr 75px;
+  .header {
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0px solid;
 
-  @media (max-width: 400px) {
+    background: ${theme.palette.deepBlue};
+    color: white;
+    //폴리곤 모형
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - 20px),
+      calc(50% + 320px) 100%,
+      47% calc(100% - 15px),
+      calc(50% - 310px) 100%,
+      0 calc(100% - 15px)
+    );
+    //배경색
+  }
+
+  .btn_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    > section {
+      margin-top: 20px;
+    }
   }
 `;
 
