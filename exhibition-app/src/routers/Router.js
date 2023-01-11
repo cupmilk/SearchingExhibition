@@ -13,15 +13,12 @@ const Router = () => {
 
   // useConText를 이용해서 intereset값 관리하기
   const [interest, SetInterest] = useState([]);
-
-  const QURL = "/Question";
-
   const handleInterest = (e) => {
     SetInterest(e);
   };
 
   const navigate = useNavigate();
-  // console.log("리로드");
+
   return (
     <Routes>
       <Route path="/" element={<Main navigate={navigate} />}></Route>
@@ -44,7 +41,7 @@ const Router = () => {
         path="/recommand"
         element={<RecommandPage navigate={navigate} />}
       ></Route>
-      <Route path="/error" element={<ErrorPage navigate={navigate} />}></Route>
+      <Route path="/error" element={<ErrorPage />}></Route>
     </Routes>
   );
 };

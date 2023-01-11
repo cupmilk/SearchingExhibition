@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Square from "../img/Square";
 
 const Header = (props) => {
   const navigate = useNavigate();

@@ -3,22 +3,22 @@ import styled, { css } from "styled-components";
 import { ThemeProvider } from "styled-components";
 import theme from "./theme";
 
-const colorStyles = css`
-  ${({ theme, color }) => {
-    const selected = theme.palette[color];
-    return css`
-      background: ${selected};
-    `;
-  }}
-`;
 // const colorStyles = css`
 //   ${({ theme, color }) => {
+//     const selected = theme.palette[color];
 //     return css`
-//       background: ${color};
+//       background: ${selected};
 //     `;
 //   }}
 // `;
 
+const colorStyles = css`
+  ${({ color }) => {
+    return css`
+      background: ${color};
+    `;
+  }}
+`;
 const sizes = {
   large: {
     height: "3rem",
@@ -100,7 +100,7 @@ function Mybutton({ children, color, size, outline, fullWidth, ...rest }) {
 }
 
 Mybutton.defaultProps = {
-  color: "blue",
+  color: `${theme.palette.blue}`,
   size: "medium",
 };
 

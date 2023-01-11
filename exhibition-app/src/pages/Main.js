@@ -1,12 +1,10 @@
-import React, { useCallback, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
 import Mybutton from "./../styles/Mybutton";
 import LayOut from "./../styles/LayOut";
 import theme from "./../styles/theme";
 import { ThemeProvider } from "styled-components";
-import Square from "../img/Square";
 
 const Main = (props) => {
   const { navigate } = props;

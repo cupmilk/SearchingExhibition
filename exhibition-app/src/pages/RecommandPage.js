@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ListTransForm from "../components/ListTransForm";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Header from "./../components/Header";
 import theme from "../styles/theme";
 import Mybutton from "./../styles/Mybutton";
+import { css } from "styled-components";
 
 const categoryColors = new Map([
   [
@@ -18,8 +19,8 @@ const categoryColors = new Map([
   [
     "전시",
     {
-      theme: `${theme.palette.deepGreen}`,
-      btn: `${theme.palette.green}`,
+      theme: `${theme.palette.deepBlue}`,
+      btn: `${theme.palette.blue}`,
     },
   ],
   [
@@ -53,6 +54,7 @@ const RecommandPage = (props) => {
   const [apiDatas, setApiDatas] = useState([]);
   const [newData, setNewData] = useState(null);
   const [listNum, setListNum] = useState(1);
+
   const getData = useCallback(async () => {
     try {
       const URL =
@@ -125,12 +127,11 @@ const RecommandPage = (props) => {
   }
   const { theme, btn } = status;
 
-  console.log(status);
   return (
     <RecommandLayOut>
-      <div className="header" color={theme}>
+      <ReccomandHeader className="header" color={theme}>
         <Header />
-      </div>
+      </ReccomandHeader>
 
       <div className="list_container">
         <ListLayOut>{viewMore(listNum)}</ListLayOut>
@@ -169,6 +170,18 @@ const RecommandBtn = styled(Mybutton)`
   background: ${(props) => props.color || "black"};
 `;
 
+const themebackground = css`
+  ${({ color }) => {
+    return css`
+      background: ${color};
+    `;
+  }}
+`;
+
+const ReccomandHeader = styled.div`
+  ${themebackground}
+`;
+
 const RecommandLayOut = styled.div`
   width: 100vw;
   .header {
@@ -178,7 +191,8 @@ const RecommandLayOut = styled.div`
     align-items: center;
     border: 0px solid;
 
-    background: ${theme.palette.deepBlue};
+    ${themebackground}
+    // background : #33a474;
     color: white;
     //폴리곤 모형
     clip-path: polygon(
