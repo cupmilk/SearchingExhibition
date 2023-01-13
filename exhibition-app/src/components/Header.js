@@ -38,6 +38,7 @@ const MainLabel = styled.div`
 
     .mainLogo {
       height: 30px;
+      cursor: pointer;
     }
     .logBtn {
       display: none;

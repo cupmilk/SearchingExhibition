@@ -32,6 +32,7 @@ const BasicLayOut = styled.div`
       calc(50% - 310px) 100%,
       0 calc(100% - 15px)
     );
+    cursor: pointer;
   }
 
   .main-content {

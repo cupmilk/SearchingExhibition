@@ -8,6 +8,7 @@ import LayOut from "./../styles/LayOut";
 import Header from "./../components/Header";
 import theme from "./../styles/theme";
 import resultCategoryInfo from "../utils/resultCategoryInfo";
+import Mybutton from "../styles/Mybutton";
 //result Page에서 하는거 -> 레이아웃만 있으면 좋겠어
 //1. category분류
 //2. category에 따른 component 출력 -> 아무리 생각해도 전체구성? 이런건 똑같고 이미지랑 txt만 달라는데 여러개를 만들 필요는 없지
@@ -49,6 +50,10 @@ const ResultPage = (props) => {
     setCategory(modeResult.modes);
   }, [interest]);
 
+  const goMain = () => {
+    navigate("/");
+  };
+
   useEffect(() => {
     getCategory();
   }, [getCategory]);
@@ -80,6 +85,11 @@ const ResultPage = (props) => {
       ) : (
         <ErrorPage navigate={navigate} />
       )}
+      <div className="footer">
+        <Mybutton size="large" onClick={goMain}>
+          다시하기
+        </Mybutton>
+      </div>
     </ResultLayOut>
   );
 };
