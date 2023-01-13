@@ -5,6 +5,7 @@ import LayOut from "./../styles/LayOut";
 import styled from "styled-components";
 import theme from "../styles/theme";
 import { css } from "styled-components";
+import qaData from "./../utils/qaData";
 
 //사용자가 결과값을 임의로 접근할 수 있기 때문에 param을 이용하여 페이지 넘기던 방식을 수정
 // map을 이용하여 똑같은 페이지 복사 붙여넣기 방식 수정
@@ -38,185 +39,11 @@ const Question = (props) => {
     }
   };
 
-  const qaData = [
-    {
-      step: 1,
-      title: "q1",
-      subtitle:
-        "완벽하게 맞는 설명보다 감각적으로 받아들이기를 선호하는 편이다.",
-      questionData: [
-        {
-          questionTitle: "그렇다",
-          event: handleStore,
-          value: [1],
-        },
-        {
-          questionTitle: "아니다",
-          event: handleStore,
-          value: [2, 4, 5],
-        },
-      ],
-    },
-    {
-      step: 2,
-      title: "q2",
-      subtitle: "주로 가사가 없는 음악을 듣는다",
-      questionData: [
-        {
-          questionTitle: "그렇다",
-          event: handleStore,
-          value: [5],
-        },
-        {
-          questionTitle: "아니다",
-          event: handleStore,
-          value: [3, 4],
-        },
-      ],
-    },
-    {
-      step: 3,
-      title: "q3",
-      subtitle: "활기찬 분위기보단 차분한 분위기를 선호한다",
-      questionData: [
-        {
-          questionTitle: "그렇다",
-          event: handleStore,
-          value: [1, 2, 5],
-        },
-        {
-          questionTitle: "아니다",
-          event: handleStore,
-          value: [3, 4],
-        },
-      ],
-    },
-    {
-      step: 4,
-      title: "q4",
-      subtitle: "트렌드에 민감하여 즉각적으로 반응하는 편이다",
-      questionData: [
-        {
-          questionTitle: "그렇다",
-          event: handleStore,
-          value: [2],
-        },
-        {
-          questionTitle: "아니다",
-          event: handleStore,
-          value: [4, 5],
-        },
-      ],
-    },
-    {
-      step: 5,
-      title: "q5",
-      subtitle: "해당 작풍에 시대적,문화적 배경에 관심이 많은 편이다",
-      questionData: [
-        {
-          questionTitle: "그렇다",
-          event: handleStore,
-          value: [1, 5, 2],
-        },
-        {
-          questionTitle: "아니다",
-          event: handleStore,
-          value: [3, 4],
-        },
-      ],
-    },
-    {
-      step: 6,
-      title: "q6",
-      subtitle: "나와 의견이 아니더라도 수용하는 편이다.",
-      questionData: [
-        {
-          questionTitle: "그렇다",
-          event: handleStore,
-          value: [1, 3],
-        },
-        {
-          questionTitle: "아니다",
-          event: handleStore,
-          value: [0],
-        },
-      ],
-    },
-    {
-      step: 7,
-      title: "q7",
-      subtitle: "영화 ost를 따로 찾아보는 편이다.",
-      questionData: [
-        {
-          questionTitle: "그렇다",
-          event: handleStore,
-          value: [3, 4, 5],
-        },
-        {
-          questionTitle: "아니다",
-          event: handleStore,
-          value: [1, 2],
-        },
-      ],
-    },
-    {
-      step: 8,
-      title: "q8",
-      subtitle: "흠 이건 테스트로 만들어준것",
-      questionData: [
-        {
-          questionTitle: "대충 긴문장을 넣어서 사이즈를 보는게 좋을드함?",
-          event: handleStore,
-          value: [0],
-        },
-        {
-          questionTitle: "이것도 대충 긴문장을 넣어서 보는것",
-          event: handleStore,
-          value: [0],
-        },
-      ],
-    },
-    {
-      step: 9,
-      title: "q6",
-      subtitle: "흠 이건 테스트로 만들어준것",
-      questionData: [
-        {
-          questionTitle: "대충 긴문장을 넣어서 사이즈를 보는게 좋을드함?",
-          event: handleStore,
-          value: [0],
-        },
-        {
-          questionTitle: "이것도 대충 긴문장을 넣어서 보는것",
-          event: handleStore,
-          value: [0],
-        },
-      ],
-    },
-    {
-      step: 10,
-      title: "q6",
-      subtitle: "흠 이건 테스트로 만들어준것",
-      questionData: [
-        {
-          questionTitle: "대충 긴문장을 넣어서 사이즈를 보는게 좋을드함?",
-          event: handleStore,
-          value: [0],
-        },
-        {
-          questionTitle: "이것도 대충 긴문장을 넣어서 보는것",
-          event: handleStore,
-          value: [0],
-        },
-      ],
-    },
-  ];
-
   useEffect(() => {
     if (step > qaData.length) {
       navigate("/ResultPage");
     }
-  }, [navigate, step, qaData.length]);
+  }, [navigate, step]);
   // 여기 데이터에 하나하나 추가해주는것도 불편한듯?
 
   //prorps를 가져오는거라서 넣어줘야하는데 넣으면 한무루프가 되서 쩝..
@@ -258,7 +85,8 @@ const Question = (props) => {
                     <Mybutton
                       color={theme.palette.pink}
                       size="large"
-                      onClick={data.event}
+                      // onClick={data.event}
+                      onClick={handleStore}
                       id={data.id}
                       value={data.value}
                     >

@@ -17,6 +17,9 @@ const Router = () => {
     SetInterest(e);
   };
 
+  useEffect(() => {
+    console.log(interest);
+  }, [interest]);
   const navigate = useNavigate();
 
   return (

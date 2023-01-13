@@ -22,24 +22,28 @@ function Mode(array) {
   let repeatMode = 0; // 최빈값이 반복된 횟수
   let modes = []; //최빈값
 
-  for (const item in countArr) {
+  // 공백값일경우 제거
+  const filteredArr = countArr.filter((element) => element[0] !== "");
+
+  for (const item in filteredArr) {
     // 배열속 배열의 2번재값 = 2.의 개수
-    //
-    if (countArr[item][1] > repeatMode) {
+
+    if (filteredArr[item][1] > repeatMode) {
       // 가장 많이 반복된 횟수를 넣는다
-      repeatMode = countArr[item][1];
+      repeatMode = filteredArr[item][1];
       // 가장 많이 반복됫 회수의 요소를 집어 넣는다
-      modes = [countArr[item][0]];
-    } else if ((countArr[item][1] = repeatMode)) {
+      modes = [filteredArr[item][0]];
+    } else if ((filteredArr[item][1] = repeatMode)) {
       // 가장 많이 반복된 횟수가 동일할경우 배열에 집어넣는다.
-      modes.push(countArr[item][0]);
+      modes.push(filteredArr[item][0]);
     }
   }
+  console.log(filteredArr);
 
   const result = {
     repeatMode,
     modes,
-    countArr,
+    filteredArr,
   };
 
   return result;
