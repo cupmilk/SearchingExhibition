@@ -5,7 +5,7 @@ import styled from "styled-components";
 import resultCategoryInfo from "../utils/resultCategoryInfo";
 import ErrorPage from "../pages/ErrorPage";
 
-//이 컴포넌트는 단순하게 버튼만 나오도록 만들자
+// 숫자를 해당 공연종류에 맞춰서 변환
 const switchInterestInfo = (num) => {
   switch (num) {
     case "1":
@@ -23,16 +23,18 @@ const switchInterestInfo = (num) => {
   }
 };
 
+// from. resultPage
 const ResultBtn = (props) => {
   const { mode } = props;
   const [interestType, setInterestType] = useState({});
   const navigate = useNavigate();
 
+  // categoryInfo설정
   const matchingInterestType = useCallback(() => {
-    const filteredRCI = resultCategoryInfo.find(
+    const filteredCategory = resultCategoryInfo.categoryInfo.find(
       (element) => element.value === switchInterestInfo(mode)
     );
-    setInterestType(() => filteredRCI);
+    setInterestType(() => filteredCategory);
   }, [mode]);
 
   useEffect(() => {
@@ -45,7 +47,12 @@ const ResultBtn = (props) => {
 
   return (
     <>
-      {!interestType.value && <div> interestType 값이 없습니다.</div>}
+      {!interestType.value && (
+        <div>
+          {" "}
+          <ErrorPage />{" "}
+        </div>
+      )}
       {interestType.value && (
         <ResultButton
           size="large"

@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Header from "./Header";
+import theme from "./../styles/theme";
 
+// 날짜 형식 변환
 const transFormData = (data, division) => {
   if (data) {
     let transData;
@@ -16,52 +16,54 @@ const transFormData = (data, division) => {
   }
 };
 
+// from. RecommandPage
 const ListTransForm = (props) => {
-  const { apiData } = props;
-
-  const [endData, setEndData] = useState({
-    year: 0,
-    month: 0,
-    day: 0,
-  });
+  const { shaowData } = props;
+  //공연 시작날
   const [startData, setStartData] = useState({
     year: 0,
     month: 0,
     day: 0,
   });
+  //공연 종료날
+  const [endData, setEndData] = useState({
+    year: 0,
+    month: 0,
+    day: 0,
+  });
+  const [showPay, setShowPay] = useState(""); // 공연비
 
-  const [useFree, setUseFree] = useState("");
   //날짜변환
   const transFormEndData = useCallback(() => {
-    const arr = transFormData(apiData, "end");
+    const arr = transFormData(shaowData, "end");
     setEndData((prev) => ({
       year: Number(arr[0]),
       month: Number(arr[1]),
       day: Number(arr[2]),
     }));
-  }, [apiData]);
-
+  }, [shaowData]);
   const transFormStartData = useCallback(() => {
-    const arr = transFormData(apiData, "start");
+    const arr = transFormData(shaowData, "start");
     setStartData((prev) => ({
       year: Number(arr[0]),
       month: Number(arr[1]),
       day: Number(arr[2]),
     }));
-  }, [apiData]);
+  }, [shaowData]);
 
   const ticketURL = () => {
-    window.location.href = `${apiData.ORG_LINK}`;
+    const Url = `${shaowData.ORG_LINK}`;
+    window.open(Url);
   };
-  const transFormUseFee = useCallback(() => {
-    if (apiData.USE_FEE === "무료" || apiData.USE_FEE === "") {
-      setUseFree((prev) => "무료");
-    } else {
-      setUseFree((prev) => apiData.USE_FEE);
-    }
-  }, [apiData.USE_FEE]);
 
-  //전체렌더링
+  const transShowPay = useCallback(() => {
+    if (shaowData.USE_FEE === "무료" || shaowData.USE_FEE === "") {
+      setShowPay((prev) => "무료");
+    } else {
+      setShowPay((prev) => shaowData.USE_FEE);
+    }
+  }, [shaowData.USE_FEE]);
+
   useEffect(() => {
     transFormEndData();
   }, [transFormEndData]);
@@ -71,29 +73,23 @@ const ListTransForm = (props) => {
   }, [transFormStartData]);
 
   useEffect(() => {
-    transFormUseFee();
-  }, [transFormUseFee]);
+    transShowPay();
+  }, [transShowPay]);
 
   return (
     <>
       <Card>
-        <section>
-          <img
-            onClick={ticketURL}
-            src={apiData.MAIN_IMG}
-            width="150px"
-            height="150px"
-            alt=""
-          />
+        <section onClick={ticketURL}>
+          <img src={shaowData.MAIN_IMG} width="150px" height="150px" alt="" />
           <h1 onClick={ticketURL}>
-            <span>{apiData.TITLE}</span>
+            <span>{shaowData.TITLE}</span>
           </h1>
         </section>
 
         <div>
           <section>
             <h2>장소</h2>
-            <p> {apiData.PLACE} </p>
+            <p> {shaowData.PLACE} </p>
           </section>
 
           <section className="data_section">
@@ -106,19 +102,13 @@ const ListTransForm = (props) => {
 
           <section className="fee_section">
             <h2>요금</h2>
-            <p>{useFree === "무료" ? "무료" : useFree}</p>
+            <p>{showPay === "무료" ? "무료" : showPay}</p>
           </section>
         </div>
       </Card>
     </>
   );
 };
-
-const grey0 = "#f8f9fa";
-const grey1 = "#f1f3f5";
-const grey5 = "#adb5bd";
-const grey6 = "#868e96";
-const grey7 = "#495057";
 
 //미디어 쿼리 수정 max-height : 420px;
 
@@ -132,11 +122,11 @@ const Card = styled.div`
   padding: 5px 15px;
   box-shadow: 2px 4px 12px rgb(0 0 0 / 8%);
   border-radius: 18px;
-  background: ${grey0};
+  background: ${theme.palette.grey0};
 
   * h2 {
     font-size: 0.75rem;
-    color: ${grey6};
+    color: ${theme.palette.grey6};
   }
   * p {
     font-size: 1rem;
@@ -152,6 +142,10 @@ const Card = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    &:hover {
+      color: ${theme.palette.deepPink};
+    }
 
     > img {
       cursor: pointer;
@@ -163,7 +157,6 @@ const Card = styled.div`
       flex-direction: column;
       justify-content: center;
       margin: 10px 0;
-      cursor: pointer;
 
       > span {
         min-height: 40px;

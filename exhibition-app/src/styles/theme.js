@@ -1,5 +1,3 @@
-const mediasize = {};
-
 const palette = {
   green: "#d6ece3",
   deepGreen: "#33a474",
@@ -12,10 +10,14 @@ const palette = {
   grey: "#eaeae9",
   purple: "#e7dfea",
   deepPurple: "#88619a",
+  grey0: "#f8f9fa",
+  grey1: "#f1f3f5",
+  grey5: "#adb5bd",
+  grey6: "#868e96",
+  grey7: "#495057",
 };
 
 const theme = {
-  mediasize,
   palette,
 };
 

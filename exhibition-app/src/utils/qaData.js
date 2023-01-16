@@ -36,7 +36,7 @@ const qaData = [
   {
     step: 3,
     title: "q3",
-    subtitle: "활기찬 분위기보단 차분한 분위기를 선호한다",
+    subtitle: "활기찬 분위기보다 차분한 분위기를 선호한다",
     questionData: [
       {
         questionTitle: "그렇다",
@@ -53,7 +53,7 @@ const qaData = [
   {
     step: 4,
     title: "q4",
-    subtitle: "눈으로 보는것보다 직접 몸으로 체험하고 파악하느것이 좋다.",
+    subtitle: "눈으로 보는것보다 직접 몸으로 체험하고 파악하는것이 좋다.",
     questionData: [
       {
         questionTitle: "그렇다",
@@ -175,7 +175,7 @@ const qaData = [
     step: 11,
     title: "q11",
     subtitle:
-      "공연을 즐길때에는 음악 그자체뿐만 아니라 공연자와 관객들과의 교감이 중요하다 생각한다.",
+      "공연을 즐길때 음악 그자체뿐만 아니라 공연자와 관객들과의 교감이 중요하다 생각한다.",
     questionData: [
       {
         questionTitle: "그렇다",

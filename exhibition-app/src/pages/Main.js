@@ -6,8 +6,10 @@ import LayOut from "./../styles/LayOut";
 import theme from "./../styles/theme";
 import { ThemeProvider } from "styled-components";
 
-const Main = (props) => {
-  const { navigate } = props;
+import { useNavigate } from "react-router-dom";
+
+const Main = () => {
+  const navigate = useNavigate();
   const goQuestion = () => {
     navigate("/Question");
   };

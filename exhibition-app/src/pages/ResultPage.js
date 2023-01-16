@@ -6,33 +6,17 @@ import ResultBtn from "../components/ResultBtn";
 import ResultTxt from "../components/ResultTxt";
 import LayOut from "./../styles/LayOut";
 import Header from "./../components/Header";
-import theme from "./../styles/theme";
-import resultCategoryInfo from "../utils/resultCategoryInfo";
 import Mybutton from "../styles/Mybutton";
-//result Page에서 하는거 -> 레이아웃만 있으면 좋겠어
-//1. category분류
-//2. category에 따른 component 출력 -> 아무리 생각해도 전체구성? 이런건 똑같고 이미지랑 txt만 달라는데 여러개를 만들 필요는 없지
-// 근데 여기서 발생되는게 이미지를 넣는데 component를 map으로 돌리니가 이미지가 겹쳐
-// 값이 여러개가 나오면 여러개의 이미지가 아니라 한개의 이미지 + 여러개의 버튼을 원한단 말이지
-//3. 전체화면 구성
-
-// logic ( 최빈값이 뭔지 ,중복인지 아닌지 ) ->  img, doc, button
 
 const ResultPage = (props) => {
   const { interest, navigate } = props;
-  const [category, setCategory] = useState([]);
+  const [categoryNum, setCategoryNum] = useState([]);
 
-  //카테고리로 하나 -> logic( 1. (최반값 설정 -> 최빈값에 따른 category설정) -> 그거에따른 interest)
-  //img로 하나 -> 그냥 이미지 출력
-  //그냥 doc -> 출력
-
-  //여기에 interesttype을 넣어야함
-  // 그래서 이미지 + txt
-  // 버튼 따로 나올 수 있도록
-
-  //요소에 포함된 갯수 만큼 보여준다
-  const getCategory = useCallback(() => {
-    // 여러값을 가진 interest 풀어해침
+  // intereste의 최빈값통해  공연 종류에 해당하는 번호 설정
+  const getCategoryNum = useCallback(() => {
+    // 베열 interest안에 요소 하나에 2개이상의 값이 들어가있을 경우 풀어서 새로운 배열에 추가
+    // 예를 들어['', '3,4', '1,2,5', '2', '1,5,2', '', '3', '4,5', '1', '2', '3', '3', '1', '5', ''] 의경우 아래와 같이 변환
+    // ['', '3', '4', '1', '2', '5', '2', '1', '5', '2', '', '3', '4', '5', '1', '2', '3', '3', '1', '5', '']
     let flatInterest = [];
     for (const index of interest) {
       if (index.length > 1) {
@@ -45,9 +29,8 @@ const ResultPage = (props) => {
         flatInterest.push(index);
       }
     }
-
     const modeResult = Mode(flatInterest);
-    setCategory(modeResult.modes);
+    setCategoryNum(modeResult.modes);
   }, [interest]);
 
   const goMain = () => {
@@ -55,8 +38,8 @@ const ResultPage = (props) => {
   };
 
   useEffect(() => {
-    getCategory();
-  }, [getCategory]);
+    getCategoryNum();
+  }, [getCategoryNum]);
 
   //여기는 너무 가독성이 떨어짐 수정이 필요
 
@@ -71,14 +54,11 @@ const ResultPage = (props) => {
       {interest.length > 1 ? (
         <div className="main-content">
           <section className="resultInfo_container">
-            <ResultTxt
-              category={category}
-              resultCategoryInfo={resultCategoryInfo}
-            />
+            <ResultTxt categoryNum={categoryNum} />
           </section>
           <section className="resultBtn_container">
-            {category.map((mode, index) => (
-              <ResultBtn mode={mode} resultCategoryInfo={resultCategoryInfo} />
+            {categoryNum.map((mode, index) => (
+              <ResultBtn mode={mode} />
             ))}
           </section>
         </div>

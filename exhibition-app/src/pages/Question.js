@@ -1,39 +1,35 @@
 import React, { useState, useEffect, useCallback } from "react";
-import Header from "../components/Header";
 import Mybutton from "../styles/Mybutton";
 import LayOut from "./../styles/LayOut";
 import styled from "styled-components";
 import theme from "../styles/theme";
 import { css } from "styled-components";
 import qaData from "./../utils/qaData";
+import { useNavigate } from "react-router-dom";
+import Header from "./../components/Header";
 
-//사용자가 결과값을 임의로 접근할 수 있기 때문에 param을 이용하여 페이지 넘기던 방식을 수정
-// map을 이용하여 똑같은 페이지 복사 붙여넣기 방식 수정
-// mainpage와 step1일경우 interest 상태 초기화
-
+// 진행도파악
 const persentCalculator = (numerator, denominator) => {
   return Math.floor((numerator / denominator) * 100);
 };
 
 const Question = (props) => {
-  const { handleInterest, navigate, interest } = props;
-  const [step, setStep] = useState(1);
-  // const [preInterest, setPreInterest] = useState([]);
+  const { handleInterest, interest } = props;
+  const [step, setStep] = useState(1); //몇번째 질문
+  const navigate = useNavigate();
 
+  // 이전 페이지로 갈 경우 해당 페이지에 들어가야할 값 순서까지 삭제
   const clickBack = () => {
     if (step > 1) {
       setStep((prev) => prev - 1);
-      //뒤로 갈때의 값도 바꿔야함
-      // 그 전 값을 저장해두고 뒤로가며 그 전값을 집어 넣어주는 식으로 해야할듯? -> 어케하농;
       handleInterest((prev) => [...prev].slice(0, step - 2));
     } else {
       navigate("/");
     }
   };
-
+  // 버튼을 눌렀을 경우 inetreset 값추가, step증가
   const handleStore = (e) => {
     if (interest.length !== qaData.length) {
-      //값이 두개 이상일 경우
       handleInterest((prev) => [...prev, e.target.value]);
       setStep((prev) => prev + 1);
     }
@@ -44,12 +40,11 @@ const Question = (props) => {
       navigate("/ResultPage");
     }
   }, [navigate, step]);
-  // 여기 데이터에 하나하나 추가해주는것도 불편한듯?
 
-  //prorps를 가져오는거라서 넣어줘야하는데 넣으면 한무루프가 되서 쩝..
+  // mainpage와 step1일경우 interest 상태 초기화
   const resetValue = useCallback(() => {
     handleInterest([]);
-  }, []);
+  }, [handleInterest]);
 
   useEffect(() => {
     resetValue();
@@ -61,31 +56,20 @@ const Question = (props) => {
       <div className="header">
         <Header />
       </div>
-
-      {qaData.map((data, index) => {
-        if (data.step === step) {
-          return (
+      {qaData.map(
+        (data, index) =>
+          data.step === step && (
             <div key={index} className="main-content">
               <div className="qs-container">
                 <h2> {data.title}</h2>
                 <h4> {data.subtitle} </h4>
               </div>
-
               <ul className="ans-container">
                 {data.questionData.map((data, index) => (
                   <li key={index}>
-                    {/* <button
-                      type="button"
-                      onClick={data.event}
-                      id={data.id}
-                      value={data.value}
-                    >
-                      {data.questionTitle}
-                    </button> */}
                     <Mybutton
                       color={theme.palette.pink}
                       size="large"
-                      // onClick={data.event}
                       onClick={handleStore}
                       id={data.id}
                       value={data.value}
@@ -96,10 +80,9 @@ const Question = (props) => {
                 ))}
               </ul>
             </div>
-          );
-        }
-        // return {}
-      })}
+          )
+      )}
+
       <div className="footer">
         <div className="progess_container">
           {/* <span>{Math.floor(step / qaData.length)}</span> */}

@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { keyframes } from "styled-components";
 import { ThemeProvider } from "styled-components";
 import theme from "./theme";
 
@@ -53,6 +54,21 @@ const fullWidthStyle = css`
     `}
 `;
 
+//btn animation
+const jelly = keyframes`
+  25% {
+    transform: scale(0.9, 1.1);
+  }
+
+  50% {
+    transform: scale(1.1, 0.9);
+  }
+
+  75% {
+    transform: scale(0.95, 1.05);
+  }
+`;
+
 const StyledButton = styled.button`
   /* 공통 스타일 */
   font-family: "IM_Hyemin-Bold";
@@ -68,6 +84,9 @@ const StyledButton = styled.button`
   padding-left: 1rem;
   padding-right: 1rem;
   margin: 0 15px;
+  &:hover {
+    animation: ${jelly} 0.5s;
+  }
 
   /* 크기 */
   ${sizeStyles}

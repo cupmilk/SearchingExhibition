@@ -1,6 +1,6 @@
 import theme from "./../styles/theme";
 
-const resultCategoryInfo = [
+const categoryInfo = [
   {
     value: "문화교양",
     img: "https://cdn.pixabay.com/photo/2018/09/25/11/45/pixel-cells-3702062_960_720.png",
@@ -9,7 +9,7 @@ const resultCategoryInfo = [
       "자신과는 다른 새로운 시각에서 설명하는것들에 대해 흥미를 느낍니다. 새로운 지식으로 인해 자신의 세상이 넓어지는것을 추구합니다. 인문학적 지식들에 많은 관심이 있습니다.",
     character: "무슨 무슨 박사 이런거하면되지",
     color: {
-      theme: `${theme.palette.deepGreen}`,
+      banner: `${theme.palette.deepGreen}`,
       element: `${theme.palette.green}`,
     },
   },
@@ -21,7 +21,7 @@ const resultCategoryInfo = [
       "눈으로 보이는 이미지에 강한 흥미를 느낍니다. 작품의 전반적인 배경을 이해하면서 즐기기도 하지만 때론 이해하지 못하더라도 작품의 느낌 그자체만으로 감동받기도 합니다.",
     character: "관찰자",
     color: {
-      theme: `${theme.palette.deepBlue}`,
+      banner: `${theme.palette.deepBlue}`,
       element: `${theme.palette.blue}`,
     },
   },
@@ -33,7 +33,7 @@ const resultCategoryInfo = [
       "뮤지션 혹은 함께 참가한 참여자들간의 감정적 교류를 좋아합니다. 단순한 관람에서 끝나는것이 아닌 공연에 참여함으로써 더욱 큰 정서적 유대감을 얻습니다.  ",
     character: "감정공유기",
     color: {
-      theme: `${theme.palette.deepYellow}`,
+      banner: `${theme.palette.deepYellow}`,
       element: `${theme.palette.yellow}`,
     },
   },
@@ -46,7 +46,7 @@ const resultCategoryInfo = [
       "시청각이 모두 자극받는 공연을 즐깁니다. 노래와 춤, 무대장치등을 통해 연출되는 극적인 장면들을 즐깁니다. 무대장치와 배우들이 이야기를 전해",
     character: "인물을 사랑하는 쉐익스피어?(극작가 느낌)",
     color: {
-      theme: `${theme.palette.deepPink}`,
+      banner: `${theme.palette.deepPink}`,
       element: `${theme.palette.pink}`,
     },
   },
@@ -58,10 +58,28 @@ const resultCategoryInfo = [
       "오로지 청각을 통해 음악의 요소 하나하나를 즐깁니다. 음악에 대한 지식이 풍부하거나 알아가는것에 기쁨을 느낍니다. 추가로 해당 음악의 역사적 배경까지도 흥미진진해합니다. 혹자는 같은 곡이라도 지휘자에 따라 달라지는 차이를 느끼고 비교하며 즐기기도 합니다.",
     character: "음악을 사랑하는 음표 미식가",
     color: {
-      theme: `${theme.palette.deepPurple}`,
+      banner: `${theme.palette.deepPurple}`,
       element: `${theme.palette.purple}`,
     },
   },
 ];
+
+const multiCategoryInfo = {
+  value: "멀티",
+  img: "https://cdn.pixabay.com/photo/2019/01/22/10/58/pixel-cells-3947916_960_720.png",
+  character: "호기심콜렉터",
+  info: "하나의 장르에 얽매이지 않는 수많은 관심사를 가졌습니다.여러가지 문화생활을 즐기면서 즐기는 방식 또한 다양합니다.",
+  enjoy:
+    "여러가지 경험를 하는것을 추천드립니다. 또한 다양한 장르들이 하나로 혼합된 새로운 형태의 공연등을 추천드립니다. ",
+  color: {
+    banner: `${theme.palette.deepGreen}`,
+    element: `${theme.palette.green}`,
+  },
+};
+
+const resultCategoryInfo = {
+  categoryInfo,
+  multiCategoryInfo,
+};
 
 export default resultCategoryInfo;

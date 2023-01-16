@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import React, { useState, useCallback } from "react";
+import { Route, Routes } from "react-router-dom";
 import Main from "./../pages/Main";
 import ResultPage from "./../pages/ResultPage";
 import RecommandPage from "../pages/RecommandPage";
@@ -13,37 +13,26 @@ const Router = () => {
 
   // useConText를 이용해서 intereset값 관리하기
   const [interest, SetInterest] = useState([]);
-  const handleInterest = (e) => {
-    SetInterest(e);
-  };
 
-  useEffect(() => {
-    console.log(interest);
-  }, [interest]);
-  const navigate = useNavigate();
+  const handleInterest = useCallback((e) => {
+    SetInterest(e);
+  }, []);
 
   return (
     <Routes>
-      <Route path="/" element={<Main navigate={navigate} />}></Route>
+      <Route path="/" element={<Main />}></Route>
 
       <Route
         path="/Question"
         element={
-          <Question
-            handleInterest={handleInterest}
-            navigate={navigate}
-            interest={interest}
-          />
+          <Question handleInterest={handleInterest} interest={interest} />
         }
       ></Route>
       <Route
         path="/ResultPage"
-        element={<ResultPage interest={interest} navigate={navigate} />}
+        element={<ResultPage interest={interest} />}
       ></Route>
-      <Route
-        path="/recommand"
-        element={<RecommandPage navigate={navigate} />}
-      ></Route>
+      <Route path="/recommand" element={<RecommandPage />}></Route>
       <Route path="/error" element={<ErrorPage />}></Route>
     </Routes>
   );

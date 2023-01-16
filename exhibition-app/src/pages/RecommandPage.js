@@ -1,64 +1,29 @@
 import React, { useCallback, useEffect, useState } from "react";
 import ListTransForm from "../components/ListTransForm";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import Header from "./../components/Header";
-import theme from "../styles/theme";
 import Mybutton from "./../styles/Mybutton";
 import { css } from "styled-components";
+import resultCategoryInfo from "./../utils/resultCategoryInfo";
+import theme from "./../styles/theme";
 
-const categoryColors = new Map([
-  [
-    "문화교양",
-    {
-      theme: `${theme.palette.deepGreen}`,
-      btn: `${theme.palette.green}`,
-    },
-  ],
-  [
-    "전시",
-    {
-      theme: `${theme.palette.deepBlue}`,
-      btn: `${theme.palette.blue}`,
-    },
-  ],
-  [
-    "콘서트",
-    {
-      theme: `${theme.palette.deepYellow}`,
-      btn: `${theme.palette.yellow}`,
-    },
-  ],
-  [
-    "뮤지컬",
-    {
-      theme: `${theme.palette.deepBlue}`,
-      btn: `${theme.palette.blue}`,
-    },
-  ],
-  [
-    "클래식",
-    {
-      theme: `${theme.palette.deepPink}`,
-      btn: `${theme.palette.pink}`,
-    },
-  ],
-]);
-
-const RecommandPage = (props) => {
-  const { navigate } = props;
-  const [searchParams] = useSearchParams();
-  const category = searchParams.get("catrgory");
-
-  const [apiDatas, setApiDatas] = useState([]);
-  const [newData, setNewData] = useState(null);
+const RecommandPage = () => {
+  const [newData, setNewData] = useState(null); // apiData
+  const [shaowDatas, setShowDatas] = useState([]); // 날짜별 정리된 Api_Date
   const [listNum, setListNum] = useState(1);
+
+  const [searchParams] = useSearchParams();
+  const category = searchParams.get("catrgory"); //url로가져온 공연종류
+
+  const navigate = useNavigate();
+  const VIEW_NUMBER = 6;
+  const API_KEY = "536e484769796d3937324150436959";
 
   const getData = useCallback(async () => {
     try {
-      const URL =
-        "http://openapi.seoul.go.kr:8088/536e484769796d3937324150436959/json/culturalEventInfo/1/1000/";
+      const URL = `http://openapi.seoul.go.kr:8088/${API_KEY}/json/culturalEventInfo/1/1000/`;
 
       const sendData = await axios.get(URL + `${category} `);
       const result = await sendData.data;
@@ -74,18 +39,16 @@ const RecommandPage = (props) => {
 
   useEffect(() => {
     if (newData) {
+      //현재 날짜보다 공연종료의 날짜가 늦은경우 filtering
       const filtedData = newData.row.filter((apiData) => {
         const endDay = new Date(apiData.DATE.split("~")[1]);
         const today = new Date();
 
-        if (endDay >= today) {
-          return true;
-        } else {
-          return false;
-        }
+        return endDay >= today ? true : false;
       });
 
-      setApiDatas(
+      setShowDatas(
+        //filtedData 오름차순 정렬
         filtedData.sort((a, b) => {
           const aEndDay = new Date(a.END_DATE);
           const bEndDay = new Date(b.END_DATE);
@@ -103,33 +66,42 @@ const RecommandPage = (props) => {
   const addNum = () => {
     return setListNum((prev) => prev + 1);
   };
-  // 맨처음 6개, 이후 추가로 6개씩 보여줌
 
-  //이건 따로 빼는게 나을듯?
-  // 없을때 어떻게 할지에 대한 무언가가 있어야할듯?
+  // VIEW_NUMBER의 크기만큼 보여줌
   const viewMore = (num) => {
-    let max = num * 6;
+    let maxView = num * VIEW_NUMBER;
     return (
-      apiDatas &&
-      apiDatas.slice(0, max).map((apiData, index) => (
+      shaowDatas &&
+      shaowDatas.slice(0, maxView).map((shaowData, index) => (
         <ul>
           <li key={index}>
-            <ListTransForm apiData={apiData} />
+            {/* shaowDatas 형식변환 */}
+            <ListTransForm shaowData={shaowData} />
           </li>
         </ul>
       ))
     );
   };
 
-  const status = categoryColors.get(category);
-  if (!status) {
-    throw console.log("mode없음");
+  let recommandPageColor = resultCategoryInfo.categoryInfo.find(
+    (element) => element.value === category
+  );
+  // 혹시 오류로 안나올 경우
+  if (!recommandPageColor) {
+    console.log("recommandPageColor 오류");
+    recommandPageColor = {
+      color: {
+        banner: `${theme.palette.deepGreen}`,
+        element: `${theme.palette.green}`,
+      },
+    };
   }
-  const { theme, btn } = status;
+
+  const { banner, element } = recommandPageColor.color;
 
   return (
     <RecommandLayOut>
-      <ReccomandHeader className="header" color={theme}>
+      <ReccomandHeader className="header" color={banner}>
         <Header />
       </ReccomandHeader>
 
@@ -138,24 +110,21 @@ const RecommandPage = (props) => {
       </div>
       <div className="btn_container">
         <section>
-          {apiDatas.length > listNum * 6 ? (
-            <RecommandBtn id="viewMore" color={btn} onClick={addNum}>
+          {shaowDatas.length > listNum * VIEW_NUMBER ? (
+            <RecommandBtn id="viewMore" color={element} onClick={addNum}>
               더보기
             </RecommandBtn>
           ) : null}
         </section>
         <section>
-          <RecommandBtn color={btn} onClick={goMain}>
-            {" "}
-            테스트 다시하기{" "}
+          <RecommandBtn color={element} onClick={goMain}>
+            테스트 다시하기
           </RecommandBtn>
         </section>
       </div>
     </RecommandLayOut>
   );
 };
-
-// 테마 색깔 보류
 
 const ListLayOut = styled.div`
   @media (min-width: 450px) {

@@ -14,8 +14,15 @@ function Mode(array) {
 
   // 3. 출현 빈도별 정리하기
   countArr.sort((first, second) => {
-    // second[1] - first[1] 숫자가 같게 변함 second[1] = first[1]이렇게 되버림 ? 왜그렇지 고장 나버림 이건 이유를 찾아서 확인 해봐야할듯
-    //  first[1] - second[1] 이경우에만 정상적으로 작동 근데 왜 그렇게 되는지 모름
+    // 출현 횟수가 같은 요소들을 정렬하는 경우에 문제가 발생할 수 있습니다.
+    //예를 들어, countArr 배열에 [["A", 5], ["B", 5], ["C", 3], ["D", 2]] 가 있을 경우,
+    //"A"와 "B"의 출현 횟수가 같기 때문에, second[1] - first[1] 을 사용하면 0이 되며 정렬이 이루어지지 않습니다.
+
+    if (first[1] === second[1]) {
+      // 출현 횟수가 같을 경우, 알파벳 순서대로 내림차순 정렬
+      return first[0] < second[0] ? 1 : -1;
+    }
+
     return first[1] - second[1];
   });
 
@@ -26,8 +33,6 @@ function Mode(array) {
   const filteredArr = countArr.filter((element) => element[0] !== "");
 
   for (const item in filteredArr) {
-    // 배열속 배열의 2번재값 = 2.의 개수
-
     if (filteredArr[item][1] > repeatMode) {
       // 가장 많이 반복된 횟수를 넣는다
       repeatMode = filteredArr[item][1];
@@ -38,7 +43,6 @@ function Mode(array) {
       modes.push(filteredArr[item][0]);
     }
   }
-  console.log(filteredArr);
 
   const result = {
     repeatMode,

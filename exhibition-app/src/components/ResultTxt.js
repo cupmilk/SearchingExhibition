@@ -22,37 +22,27 @@ const switchInterestInfo = (num) => {
   }
 };
 
+//from resultPage
 const ResultTxt = (props) => {
-  const { category } = props;
-  const [interestType, setInterestType] = useState({});
+  const { categoryNum } = props;
+  const [interestType, setInterestType] = useState({}); //interest를 통해 보여줄 캐릭터정보
 
+  // categoryinfo 설정
   const matchingInterestType = useCallback(() => {
-    if (category.length === 1) {
-      const filteredRCI = resultCategoryInfo.find(
-        (element) => element.value === switchInterestInfo(category[0])
+    if (categoryNum.length === 1) {
+      const filteredCategory = resultCategoryInfo.categoryInfo.find(
+        (element) => element.value === switchInterestInfo(categoryNum[0])
       );
-      setInterestType(filteredRCI);
-    } else if (category.length > 1) {
-      setInterestType({
-        value: "멀티", //있을 필요가 있나? 구분때문에 넣어두긴 하는데
-        img: "https://cdn.pixabay.com/photo/2019/01/22/10/58/pixel-cells-3947916_960_720.png",
-        character: "다관심자",
-        info: "하나의 장르에 얽매이지 않는 수많은 관심사를 가졌습니다. 그렇기에 문화를 즐기는 방식도 다양합니다. ",
-        enjoy:
-          "여러가지가 혼합된 경험을 하는것을 추천드려요, 다양한 장르에 있는 관심들이 하나도 혼합된 새로운 형태의 공연을 추천드립니다.",
-        color: {
-          theme: `${theme.palette.deepGreen}`,
-          element: `${theme.palette.green}`,
-        },
-      });
+      setInterestType(filteredCategory);
+    } else if (categoryNum.length > 1) {
+      setInterestType(resultCategoryInfo.multiCategoryInfo);
     }
-  }, [category]);
+  }, [categoryNum]);
 
   useEffect(() => {
     matchingInterestType();
   }, [matchingInterestType]);
-
-  //interestType.color에서만 오류가 걸려서 이렇게 했는데 어떻게 수정해야하는지 모르겠음
+  //interestType의 다른 값들은 가져올때 interestType.color는 못가져오는 경우가 있어서 아래와 같이 설정
   return (
     <>
       {interestType.color ? (
