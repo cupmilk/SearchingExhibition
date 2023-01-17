@@ -19,19 +19,19 @@ const RecommandPage = () => {
 
   const navigate = useNavigate();
   const VIEW_NUMBER = 6;
-  const API_KEY = "536e484769796d3937324150436959";
+  const API_KEY = process.env.REACT_APP_CULTURAL_EVENT_API_KEY;
 
   const getData = useCallback(async () => {
     try {
       const URL = `http://openapi.seoul.go.kr:8088/${API_KEY}/json/culturalEventInfo/1/1000/`;
-
+      console.dir(URL);
       const sendData = await axios.get(URL + `${category} `);
       const result = await sendData.data;
       setNewData(result.culturalEventInfo);
     } catch (error) {
       console.log(error);
     }
-  }, [category]);
+  }, [category, API_KEY]);
 
   useEffect(() => {
     getData();
