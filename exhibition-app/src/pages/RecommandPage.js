@@ -24,7 +24,7 @@ const RecommandPage = () => {
   const getData = useCallback(async () => {
     try {
       const URL = `http://openapi.seoul.go.kr:8088/${API_KEY}/json/culturalEventInfo/1/1000/`;
-      console.dir(URL);
+
       const sendData = await axios.get(URL + `${category} `);
       const result = await sendData.data;
       setNewData(result.culturalEventInfo);
