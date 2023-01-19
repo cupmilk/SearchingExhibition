@@ -2,24 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { css } from "styled-components";
 import resultCategoryInfo from "../utils/resultCategoryInfo";
-import ErrorPage from "../pages/ErrorPage";
-
-const switchInterestInfo = (num) => {
-  switch (num) {
-    case "1":
-      return "문화교양";
-    case "2":
-      return "전시";
-    case "3":
-      return "콘서트";
-    case "4":
-      return "뮤지컬";
-    case "5":
-      return "클래식";
-    default:
-      return <ErrorPage />;
-  }
-};
+import switchInterestInfo from "./../utils/switchInterestInfo";
 
 //from resultPage
 const ResultTxt = (props) => {

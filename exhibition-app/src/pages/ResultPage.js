@@ -41,6 +41,10 @@ const ResultPage = (props) => {
     getCategoryNum();
   }, [getCategoryNum]);
 
+  useEffect(() => {
+    console.log(interest);
+  }, [interest]);
+
   //여기는 너무 가독성이 떨어짐 수정이 필요
 
   //1. 여러개의 값일땔
