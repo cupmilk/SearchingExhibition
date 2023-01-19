@@ -21,26 +21,26 @@ const RecommandPage = () => {
   const VIEW_NUMBER = 6;
   const API_KEY = process.env.REACT_APP_CULTURAL_EVENT_API_KEY;
 
-  const getData = useCallback(async () => {
-    try {
-      const URL = `http://openapi.seoul.go.kr:8088/${API_KEY}/json/culturalEventInfo/1/100/`;
-      const sendData = await axios.get(URL + `${category} `);
-      const result = await sendData.data;
-
-      setNewData(result.culturalEventInfo);
-    } catch (error) {
-      console.log(error);
-    }
-  }, [category, API_KEY]);
-
   // const getData = useCallback(async () => {
-  //   const result = await axios.get(
-  //     "/.netlify/functions/culturalEvent",
-  //     category
-  //   );
-  //   console.log(result.body);
-  //   setNewData(result.body);
-  // }, [category]);
+  //   try {
+  //     const URL = `http://openapi.seoul.go.kr:8088/${API_KEY}/json/culturalEventInfo/1/100/`;
+  //     const sendData = await axios.get(URL + `${category} `);
+  //     const result = await sendData.data;
+
+  //     setNewData(result.culturalEventInfo);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, [category, API_KEY]);
+
+  const getData = useCallback(async () => {
+    const result = await axios.get(
+      "/.netlify/functions/culturalEvent",
+      category
+    );
+    console.log(result.body);
+    setNewData(result.body);
+  }, [category]);
 
   useEffect(() => {
     getData();

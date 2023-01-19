@@ -41,15 +41,6 @@ const ResultPage = (props) => {
     getCategoryNum();
   }, [getCategoryNum]);
 
-  useEffect(() => {
-    console.log(interest);
-  }, [interest]);
-
-  //여기는 너무 가독성이 떨어짐 수정이 필요
-
-  //1. 여러개의 값일땔
-  // 2. 각각의 이미지와 내용 -> 다수의 값이 = 설명, 이미지 => 공통된 하나
-  // 3. 즉 map돌리는건 버튼만 돌리면 된다.
   return (
     <ResultLayOut>
       <div className="header">
