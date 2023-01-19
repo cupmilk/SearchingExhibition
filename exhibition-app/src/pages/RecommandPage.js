@@ -38,6 +38,7 @@ const RecommandPage = () => {
       "/.netlify/functions/culturalEvent",
       category
     );
+    console.log(result.body);
     setNewData(result.body);
   }, [category]);
 
