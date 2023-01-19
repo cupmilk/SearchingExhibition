@@ -34,7 +34,7 @@ const RecommandPage = () => {
   // }, [category, API_KEY]);
 
   const getData = useCallback(async () => {
-    const result = await axios.post(
+    const result = await axios.get(
       "/.netlify/functions/culturalEvent",
       category
     );
