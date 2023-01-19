@@ -7,11 +7,11 @@ exports.handler = async function (event) {
   const CULTURAL_EVENT_API_KEY = "536e484769796d3937324150436959";
   const URL = `http://openapi.seoul.go.kr:8088/${CULTURAL_EVENT_API_KEY}/json/culturalEventInfo/1/100/${CATEGORY}`;
   try {
-    const { data } = await axios.get(URL);
+    const response = await axios.get(URL);
 
     return {
       statusCode: 200,
-      body: data.culturalEventInfo,
+      body: response.data,
     };
   } catch (error) {
     return {
