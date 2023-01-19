@@ -2,3 +2,19 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+# 제품모드
+[bulid]
+ command = "npm run build"
+ functions = "functions"
+ publish = "build"
+
+#개발모드
+[dev] 
+framework = "#custom" # 감지할 프로젝트 유형을 지정.
+  command = "npm run dev:netlify" # 연결할 프로젝트의 개발서버를 실행하는 명령(script)을 지정 
+  targetPort = 3000 # 연결할 프로젝트의 개발서버의 포트번호를 지정 
+  port = 8888 # 출력할 Netlify 서버의 포트번호를 지정 
+  publish = "build" # 프로젝트의 정적 콘텐츠 디렉토리를 지정 
+  autoLaunch = false # Netlify 서버가 준비되면 자동으로 브라우저를 오픈할 것인지 지정
+  

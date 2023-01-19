@@ -2,7 +2,7 @@ import theme from "./../styles/theme";
 
 const categoryInfo = [
   {
-    value: "문화교양",
+    value: "교육",
     img: "https://cdn.pixabay.com/photo/2018/09/25/11/45/pixel-cells-3702062_960_720.png",
     info: "끝없는 호기심을 가지고 있습니다. 배움에 있어서 어른과같은 겸허함과 어린아이와 같은 순수함을 지니고 있습니다. 그 속에 담겨진 지혜과 지식을 깨달았을때 기쁨을 알고있습니다.",
     enjoy:
