@@ -19,13 +19,12 @@
     "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://cupmilk.netlify.app",
   "scripts": {
     "start": "react-scripts start",
+    "dev:netlify": "netlify dev",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "dev:netlify": "netlify dev"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
