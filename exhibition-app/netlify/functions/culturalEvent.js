@@ -22,6 +22,7 @@
 // };
 
 const axios = require("axios");
+axios.defaults.maxBodyLength = Infinity;
 
 exports.handler = async (event, context) => {
   // Get the category from the query string
