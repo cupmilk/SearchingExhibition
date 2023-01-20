@@ -1,39 +1,19 @@
-// const axios = require("axios");
-
-// exports.handler = async function (event) {
-//   console.log(event);
-
-//   const CATEGORY = event;
-//   const CULTURAL_EVENT_API_KEY = "536e484769796d3937324150436959";
-//   const URL = `http://openapi.seoul.go.kr:8088/${CULTURAL_EVENT_API_KEY}/json/culturalEventInfo/1/100/${CATEGORY}`;
-//   try {
-//     const response = await axios.get(URL);
-
-//     return {
-//       statusCode: 200,
-//       body: response.data,
-//     };
-//   } catch (error) {
-//     return {
-//       statusCode: error.response.status, // axios 공식문서 참조
-//       body: error.message,
-//     };
-//   }
-// };
-
 const axios = require("axios");
+//maxBodyLength 설정을 무한대로 설정
 axios.defaults.maxBodyLength = Infinity;
 
 exports.handler = async (event, context) => {
-  // Get the category from the query string
+  // category호출
+  // event : 함수가 호출될 때 전달되는 정보를 담고 있는 객체
+  // event.queryStringParameters : event객체의 일부, 함수가 호출될 때 URL에 쿼리 문자열 매개변수의 키-값 쌍을 포함하는 개체.
   const { category } = event.queryStringParameters;
 
-  // Make the API request
-  const API_KEY = "536e484769796d3937324150436959";
+  // api 요청
+  const API_KEY = process.env.REACT_APP_CULTURAL_EVENT_API_KEY;
   const url = `http://openapi.seoul.go.kr:8088/${API_KEY}/json/culturalEventInfo/1/100/${category}`;
   const res = await axios.get(url);
 
-  // Return the data as a JSON object
+  // json객체로 반환
   return {
     statusCode: 200,
     body: JSON.stringify(res.data),

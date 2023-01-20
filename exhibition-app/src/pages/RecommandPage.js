@@ -19,8 +19,9 @@ const RecommandPage = () => {
 
   const navigate = useNavigate();
   const VIEW_NUMBER = 6;
-  const API_KEY = process.env.REACT_APP_CULTURAL_EVENT_API_KEY;
+  // const API_KEY = process.env.REACT_APP_CULTURAL_EVENT_API_KEY;
 
+  // [dev mode]
   // const getData = useCallback(async () => {
   //   try {
   //     const URL = `http://openapi.seoul.go.kr:8088/${API_KEY}/json/culturalEventInfo/1/100/`;
@@ -35,11 +36,17 @@ const RecommandPage = () => {
 
   const getData = useCallback(async () => {
     try {
+      // culturalEvent 가져오는 api를 호출하는 파일 경로 설정
       const sendData = await axios.get("/.netlify/functions/culturalEvent", {
+        // 인자전달
         params: { category: `${category}` },
       });
+      // 오류확인용
+      if (!sendData.data) {
+        console.log(sendData);
+      }
       const result = sendData.data.culturalEventInfo;
-      console.log(result);
+
       setNewData(result);
     } catch (error) {
       console.log(error);
