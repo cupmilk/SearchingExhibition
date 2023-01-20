@@ -35,11 +35,12 @@ const RecommandPage = () => {
 
   const getData = useCallback(async () => {
     try {
-      const result = await axios.get("/.netlify/functions/culturalEvent", {
+      const sendData = await axios.get("/.netlify/functions/culturalEvent", {
         params: { category: `${category}` },
       });
+      const result = sendData.data.culturalEventInfo;
       console.log(result);
-      setNewData(result.body);
+      setNewData(result);
     } catch (error) {
       console.log(error);
     }
