@@ -42,6 +42,7 @@ const ListTransForm = (props) => {
       day: Number(arr[2]),
     }));
   }, [shaowData]);
+
   const transFormStartData = useCallback(() => {
     const arr = transFormData(shaowData, "start");
     setStartData((prev) => ({
@@ -86,7 +87,7 @@ const ListTransForm = (props) => {
           </h1>
         </section>
 
-        <div>
+        <div className="show_info_container">
           <section>
             <h2>장소</h2>
             <p> {shaowData.PLACE} </p>
@@ -126,7 +127,7 @@ const Card = styled.div`
 
   * h2 {
     font-size: 0.75rem;
-    color: ${theme.palette.grey6};
+    color: ${theme.palette.grey7};
   }
   * p {
     font-size: 1rem;
@@ -205,6 +206,12 @@ const Card = styled.div`
           height: 80px;
           padding: 10px 15px;
         }
+      }
+    }
+    .show_info_container {
+      padding: 0 20px;
+      > section {
+        width: 85%;
       }
     }
   }

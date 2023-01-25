@@ -1,0 +1,25 @@
+# example netlify.toml
+[build]
+  command = "react-scripts build"
+  functions = "netlify\functions"
+  publish = ""
+
+  ## Uncomment to use this redirect for Single Page Applications like create-react-app.
+  ## Not needed for static site generators.
+  #[[redirects]]
+  #  from = "/*"
+  #  to = "/index.html"
+  #  status = 200
+
+  ## (optional) Settings for Netlify Dev
+  ## https://github.com/netlify/cli/blob/main/docs/netlify-dev.md#project-detection
+[dev] 
+
+  command = "npm run dev" # 연결할 프로젝트의 개발서버를 실행하는 명령(script)을 지정 
+  targetPort = 3000 # 연결할 프로젝트의 개발서버의 포트번호를 지정 
+  port = 8888 # 출력할 Netlify 서버의 포트번호를 지정 
+  publish = "build" # 프로젝트의 정적 콘텐츠 디렉토리를 지정 
+  autoLaunch = false # Netlify 서버가 준비되면 자동으로 브라우저를 오픈할 것인지 지정
+  
+
+  ## more info on configuring this file: https://docs.netlify.com/configure-builds/file-based-configuration/

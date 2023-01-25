@@ -7,7 +7,7 @@ const categoryInfo = [
     info: "끝없는 호기심을 가지고 있습니다. 배움에 있어서 어른과같은 겸허함과 어린아이와 같은 순수함을 지니고 있습니다. 그 속에 담겨진 지혜과 지식을 깨달았을때 기쁨을 알고있습니다.",
     enjoy:
       "자신과는 다른 새로운 시각에서 설명하는것들에 대해 흥미를 느낍니다. 새로운 지식으로 인해 자신의 세상이 넓어지는것을 추구합니다. 인문학적 지식들에 많은 관심이 있습니다.",
-    character: "무슨 무슨 박사 이런거하면되지",
+    character: "호기심 많은 탐구가",
     color: {
       banner: `${theme.palette.deepGreen}`,
       element: `${theme.palette.green}`,
@@ -44,7 +44,7 @@ const categoryInfo = [
     info: "많은 요소들을 파악하여 하나로 만들 줄 압니다.노래, 춤, 이야기 모두 다 즐깁니다. 각각의 요소들을 하나로 만들어 이야기속 등장인물의 감정에 귀기울입니다.",
     enjoy:
       "시청각이 모두 자극받는 공연을 즐깁니다. 노래와 춤, 무대장치등을 통해 연출되는 극적인 장면들을 즐깁니다. 무대장치와 배우들이 이야기를 전해",
-    character: "인물을 사랑하는 쉐익스피어?(극작가 느낌)",
+    character: "이야기를 사랑하는 땡땡땡?",
     color: {
       banner: `${theme.palette.deepPink}`,
       element: `${theme.palette.pink}`,
@@ -56,7 +56,7 @@ const categoryInfo = [
     info: "음식을 음미하는 미식가처럼 섬세한 음악을 즐기는 당신, 음 자체가 전달하는 의미를 알며 멜로디가 이끌어주는 대로 마음의 풍경을 그릴 줄 압니다.",
     enjoy:
       "오로지 청각을 통해 음악의 요소 하나하나를 즐깁니다. 음악에 대한 지식이 풍부하거나 알아가는것에 기쁨을 느낍니다. 추가로 해당 음악의 역사적 배경까지도 흥미진진해합니다. 혹자는 같은 곡이라도 지휘자에 따라 달라지는 차이를 느끼고 비교하며 즐기기도 합니다.",
-    character: "음악을 사랑하는 음표 미식가",
+    character: "음표 탐정",
     color: {
       banner: `${theme.palette.deepPurple}`,
       element: `${theme.palette.purple}`,

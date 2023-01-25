@@ -3,7 +3,7 @@
 
 # 제품모드
 [bulid]
- command = "npm run build"
+ command = "npm run start"
  functions = "functions"
  publish = "build"
 

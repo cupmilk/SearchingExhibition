@@ -12,9 +12,9 @@ const palette = {
   deepPurple: "#88619a",
   grey0: "#f8f9fa",
   grey1: "#f1f3f5",
-  grey5: "#adb5bd",
-  grey6: "#868e96",
-  grey7: "#495057",
+  grey5: "#efeeed",
+  grey6: "#cccccc",
+  grey7: "#868e96",
 };
 
 const theme = {

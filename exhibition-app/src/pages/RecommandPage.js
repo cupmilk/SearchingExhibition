@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import ListTransForm from "../components/ListTransForm";
+import SkeletonListForm from "../components/SkeletonListForm";
+
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
@@ -19,9 +21,9 @@ const RecommandPage = () => {
 
   const navigate = useNavigate();
   const VIEW_NUMBER = 6;
-  // const API_KEY = process.env.REACT_APP_CULTURAL_EVENT_API_KEY;
 
   // [dev mode]
+  // const API_KEY = process.env.REACT_APP_CULTURAL_EVENT_API_KEY;
   // const getData = useCallback(async () => {
   //   try {
   //     const URL = `http://openapi.seoul.go.kr:8088/${API_KEY}/json/culturalEventInfo/1/100/`;
@@ -97,10 +99,26 @@ const RecommandPage = () => {
           <li key={index}>
             {/* shaowDatas 형식변환 */}
             <ListTransForm shaowData={shaowData} />
+            {/* <SkeletonListForm shaowData={shaowData} /> */}
           </li>
         </ul>
       ))
     );
+  };
+
+  //스켈레톤 ui
+  const preView = () => {
+    const forms = [];
+    for (let i = 0; i < VIEW_NUMBER; i++) {
+      forms.push(
+        <ul>
+          <li>
+            <SkeletonListForm key={i} />
+          </li>
+        </ul>
+      );
+    }
+    return forms;
   };
 
   let recommandPageColor = resultCategoryInfo.categoryInfo.find(
@@ -117,6 +135,10 @@ const RecommandPage = () => {
     };
   }
 
+  useEffect(() => {
+    console.log(shaowDatas);
+  }, [shaowDatas]);
+
   const { banner, element } = recommandPageColor.color;
 
   return (
@@ -125,23 +147,29 @@ const RecommandPage = () => {
         <Header />
       </ReccomandHeader>
 
-      <div className="list_container">
-        <ListLayOut>{viewMore(listNum)}</ListLayOut>
-      </div>
-      <div className="btn_container">
-        <section>
-          {shaowDatas.length > listNum * VIEW_NUMBER ? (
-            <RecommandBtn id="viewMore" color={element} onClick={addNum}>
-              더보기
-            </RecommandBtn>
-          ) : null}
-        </section>
-        <section>
-          <RecommandBtn color={element} onClick={goMain}>
-            테스트 다시하기
-          </RecommandBtn>
-        </section>
-      </div>
+      {newData ? (
+        <>
+          <div className="list_container">
+            <ListLayOut>{viewMore(listNum)}</ListLayOut>
+          </div>
+          <div className="btn_container">
+            <section>
+              {shaowDatas.length > listNum * VIEW_NUMBER ? (
+                <RecommandBtn id="viewMore" color={element} onClick={addNum}>
+                  더보기
+                </RecommandBtn>
+              ) : null}
+            </section>
+            <section>
+              <RecommandBtn color={element} onClick={goMain}>
+                테스트 다시하기
+              </RecommandBtn>
+            </section>
+          </div>
+        </>
+      ) : (
+        <ListLayOut>{preView()}</ListLayOut>
+      )}
     </RecommandLayOut>
   );
 };
