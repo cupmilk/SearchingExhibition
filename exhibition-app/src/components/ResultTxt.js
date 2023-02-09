@@ -25,24 +25,26 @@ const ResultTxt = (props) => {
     matchingInterestType();
   }, [matchingInterestType]);
   //interestType의 다른 값들은 가져올때 interestType.color는 못가져오는 경우가 있어서 아래와 같이 설정
+
+  const { adjective, character, img, color, enjoy, info } = interestType;
+
   return (
     <>
-      {interestType.color ? (
+      {interestType && interestType.color ? (
         <TxtContainer>
           <section className="character_info">
-            <h1>{interestType.character}</h1>
-            <img src={interestType.img} width="300px" height="300px" alt="" />
+            <h2 color={color.banner}>{adjective}</h2>
+            <h1>{character}</h1>
+            <img src={img} width="300px" height="300px" alt="" />
           </section>
           <div className="main_description">
             <section className="info_section">
-              <IndexTitle color={interestType.color.element}>특징</IndexTitle>
-              <p>{interestType.info}</p>
+              <IndexTitle color={color.element}>특징</IndexTitle>
+              <p>{info}</p>
             </section>
             <section className="recommand_section">
-              <IndexTitle color={interestType.color.element}>
-                선호하는 경험
-              </IndexTitle>
-              <p>{interestType.enjoy}</p>
+              <IndexTitle color={color.element}>선호하는 경험</IndexTitle>
+              <p>{enjoy}</p>
             </section>
           </div>
         </TxtContainer>
@@ -53,7 +55,7 @@ const ResultTxt = (props) => {
   );
 };
 
-const colorStyles = css`
+const bgcolorStyles = css`
   ${({ color }) => {
     return css`
       background: ${color};
@@ -74,7 +76,7 @@ const IndexTitle = styled.h2`
   border-radius: 20px;
 
   /* 색상 */
-  ${colorStyles}
+  ${bgcolorStyles}
 `;
 
 const TxtContainer = styled.div`
@@ -90,9 +92,12 @@ const TxtContainer = styled.div`
     justify-content: center;
     align-items: center;
 
+    :first-child {
+      font-size: 1rem;
+    }
     > h1 {
       font-size: 2rem;
-      padding: 5% 0;
+      margin: 0 0 15px 0;
     }
   }
 
@@ -106,7 +111,7 @@ const TxtContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: start;
 
     font-size: 1.25rem;
     .info_section {

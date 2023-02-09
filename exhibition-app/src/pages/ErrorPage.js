@@ -10,7 +10,7 @@ const ErrorPage = () => {
 
   return (
     <div>
-      <h3> 오류로 인하여 메인페이지로 가기</h3>
+      <span> 오류로 인하여 메인페이지로 가기</span>
       <button onClick={goMain}> 메인메뉴 </button>
     </div>
   );
