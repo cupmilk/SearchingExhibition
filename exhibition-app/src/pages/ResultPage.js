@@ -71,6 +71,7 @@ const ResultPage = (props) => {
 
 const ResultLayOut = styled(LayOut)`
   .main-content {
+    /* max-width: ; */
     padding-bottom: 5%;
     & p {
       font-size: 1.1rem;
