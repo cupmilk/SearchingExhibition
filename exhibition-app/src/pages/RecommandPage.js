@@ -23,37 +23,37 @@ const RecommandPage = () => {
   const VIEW_NUMBER = 6;
 
   // [dev mode]
-  const API_KEY = process.env.REACT_APP_CULTURAL_EVENT_API_KEY;
-  const getData = useCallback(async () => {
-    try {
-      const URL = `http://openapi.seoul.go.kr:8088/${API_KEY}/json/culturalEventInfo/1/100/`;
-      const sendData = await axios.get(URL + `${category} `);
-      const result = await sendData.data;
-
-      setNewData(result.culturalEventInfo);
-    } catch (error) {
-      console.log(error);
-    }
-  }, [category, API_KEY]);
-
+  // const API_KEY = process.env.REACT_APP_CULTURAL_EVENT_API_KEY;
   // const getData = useCallback(async () => {
   //   try {
-  //     // culturalEvent 가져오는 api를 호출하는 파일 경로 설정
-  //     const sendData = await axios.get("/.netlify/functions/culturalEvent", {
-  //       // 인자전달
-  //       params: { category: `${category}` },
-  //     });
-  //     // 오류확인용
-  //     if (!sendData.data) {
-  //       console.log(sendData);
-  //     }
-  //     const result = sendData.data.culturalEventInfo;
+  //     const URL = `http://openapi.seoul.go.kr:8088/${API_KEY}/json/culturalEventInfo/1/100/`;
+  //     const sendData = await axios.get(URL + `${category} `);
+  //     const result = await sendData.data;
 
-  //     setNewData(result);
+  //     setNewData(result.culturalEventInfo);
   //   } catch (error) {
   //     console.log(error);
   //   }
-  // }, [category]);
+  // }, [category, API_KEY]);
+
+  const getData = useCallback(async () => {
+    try {
+      // culturalEvent 가져오는 api를 호출하는 파일 경로 설정
+      const sendData = await axios.get("/.netlify/functions/culturalEvent", {
+        // 인자전달
+        params: { category: `${category}` },
+      });
+      // 오류확인용
+      if (!sendData.data) {
+        console.log(sendData);
+      }
+      const result = sendData.data.culturalEventInfo;
+
+      setNewData(result);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [category]);
 
   useEffect(() => {
     getData();

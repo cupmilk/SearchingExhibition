@@ -1,4 +1,9 @@
 const axios = require("axios");
+// const compression = require("compression");
+// const express = require("express");
+// const app = express();
+
+// app.use(compression());
 //maxBodyLength 설정을 무한대로 설정
 axios.defaults.maxBodyLength = Infinity;
 
