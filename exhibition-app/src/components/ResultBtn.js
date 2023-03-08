@@ -38,7 +38,6 @@ const ResultBtn = (props) => {
       )}
       {interestType.value && (
         <ResultButton
-          size="large"
           color={interestType.color.element}
           value={interestType.value}
           onClick={showResult}

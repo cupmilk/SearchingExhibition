@@ -7,6 +7,8 @@ import { css } from "styled-components";
 import qaData from "./../utils/qaData";
 import { useNavigate } from "react-router-dom";
 import Header from "./../components/Header";
+import ListTransForm from "./../components/ListTransForm";
+import { media } from "./../styles/media";
 
 // 진행도파악
 const persentCalculator = (numerator, denominator) => {
@@ -53,55 +55,56 @@ const Question = (props) => {
   //이거 마지막 선택지 작동안함
   return (
     <QsLayOut>
-      <div className="header">
-        <Header />
-      </div>
-      {qaData.map(
-        (data, index) =>
-          data.step === step && (
-            <div key={index} className="main-content">
-              <div className="qs-container">
-                <h2> {data.title}</h2>
-                <h4> {data.subtitle} </h4>
+      <ContentBox>
+        {qaData.map(
+          (data, index) =>
+            data.step === step && (
+              <div key={index} className="main-content">
+                <div className="qs-container">
+                  <h2> {data.title}</h2>
+                  <h4> {data.subtitle} </h4>
+                </div>
+                <ul className="ans-container">
+                  {data.questionData.map((data, index) => (
+                    <li key={index}>
+                      <Mybutton
+                        color={theme.palette.pink}
+                        size="medium"
+                        onClick={handleStore}
+                        id={data.id}
+                        value={data.value}
+                      >
+                        {data.questionTitle}
+                      </Mybutton>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="ans-container">
-                {data.questionData.map((data, index) => (
-                  <li key={index}>
-                    <Mybutton
-                      color={theme.palette.pink}
-                      size="large"
-                      onClick={handleStore}
-                      id={data.id}
-                      value={data.value}
-                    >
-                      {data.questionTitle}
-                    </Mybutton>
-                  </li>
-                ))}
-              </ul>
+            )
+        )}
+      </ContentBox>
+      <Footer>
+        <div className="footer">
+          <div className="progess_container">
+            <div className="progess_num">
+              {persentCalculator(step, qaData.length)}%
             </div>
-          )
-      )}
-
-      <div className="footer">
-        <div className="progess_container">
-          {/* <span>{Math.floor(step / qaData.length)}</span> */}
-          <div className="progess_num">
-            {persentCalculator(step, qaData.length)}%
+            <div className="persentBar_container">
+              <PersentBar step={step} allStep={qaData.length} />
+            </div>
           </div>
-
-          <PersentBar step={step} allStep={qaData.length} />
+          <div className="back-btn_container">
+            <Mybutton
+              size="small"
+              color={theme.palette.yellow}
+              className="back-btn"
+              onClick={clickBack}
+            >
+              뒤로가기
+            </Mybutton>
+          </div>
         </div>
-
-        <Mybutton
-          size="large"
-          color={theme.palette.yellow}
-          className="back-btn"
-          onClick={clickBack}
-        >
-          뒤로가기
-        </Mybutton>
-      </div>
+      </Footer>
     </QsLayOut>
   );
 };
@@ -126,9 +129,20 @@ const PersentBar = styled.div`
   background: ${theme.palette.deepGreen};
 `;
 
+const ContentBox = styled.div`
+  grid-area: content;
+  ${theme.common.flexCenterColumn}
+`;
+
+const Footer = styled.div`
+  grid-area: footer;
+`;
+
 const QsLayOut = styled(LayOut)`
   .main-content {
+    max-width: 700px;
     .qs-container {
+      min-height: 300px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -141,30 +155,40 @@ const QsLayOut = styled(LayOut)`
 
       & > h4 {
         width: 100%;
-        font-size: 1.75rem;
-        border: 0px solid;
-        border-radius: 15px;
-        background: white;
+        font-size: ${theme.fontSizes.subtitle};
+        ${media.desktop`
+        font-size: ${theme.fontSizes.title};
+
+    `}
+
+        ${media.tablet`
+        font-size: ${theme.fontSizes.title};
+
+    `}
+
+    ${media.mobile`
+    font-size: ${theme.fontSizes.subtitle};  
+
+    `}
+
+
+        text-align: center;
+        line-height: 2.4rem;
       }
     }
 
     .ans-container {
       display: flex;
       flex-direction: row;
-      margin-top: 25px;
-
-      & > li {
-        margin: 0 30px;
-      }
+      justify-content: space-evenly;
     }
   }
-  .back-btn {
-    width: 150px;
-
-    border: 0px solid;
+  .back-btn_container {
+    ${theme.common.flexCenter}
   }
 
   .footer {
+    width: 100%;
     .progess_container {
       width: 100%;
       display: flex;
@@ -182,10 +206,10 @@ const QsLayOut = styled(LayOut)`
         // margin-right: 15px;
       }
 
-      // .persentbar_box {
-      //   width: 100%;
-      //   background: red;
-      // }
+      .persentBar_container {
+        width: 100%;
+        background: ${theme.palette.grey5};
+      }
     }
   }
 `;

@@ -20,18 +20,20 @@ const colorStyles = css`
     `;
   }}
 `;
+const pixelToRem = (size) => `${size / 16}rem`;
+
 const sizes = {
   large: {
-    height: "3rem",
-    fontSize: "1.25rem",
+    height: `${pixelToRem(80)}`,
+    fontSize: `${pixelToRem(30)}`,
   },
   medium: {
-    height: "2.25rem",
-    fontSize: "1rem",
+    height: `${pixelToRem(50)}`,
+    fontSize: `${pixelToRem(20)}`,
   },
   small: {
-    height: "1.75rem",
-    fontSize: "0.875rem",
+    height: `${pixelToRem(30)}`,
+    fontSize: `${pixelToRem(20)}`,
   },
 };
 

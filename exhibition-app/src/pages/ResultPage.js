@@ -5,13 +5,15 @@ import Mode from "./../components/Mode";
 import ResultBtn from "../components/ResultBtn";
 import ResultTxt from "../components/ResultTxt";
 import LayOut from "./../styles/LayOut";
-import Header from "./../components/Header";
+
 import Mybutton from "../styles/Mybutton";
+import theme from "./../styles/theme";
+import { useNavigate } from "react-router-dom";
 
 const ResultPage = (props) => {
-  const { interest, navigate } = props;
+  const { interest } = props;
   const [categoryNum, setCategoryNum] = useState([]);
-
+  const navigate = useNavigate();
   // intereste의 최빈값통해  공연 종류에 해당하는 번호 설정
   const getCategoryNum = useCallback(() => {
     // 베열 interest안에 요소 하나에 2개이상의 값이 들어가있을 경우 풀어서 새로운 배열에 추가
@@ -43,31 +45,35 @@ const ResultPage = (props) => {
 
   return (
     <ResultLayOut>
-      <div className="header">
-        <Header />
-      </div>
-      {interest.length > 1 ? (
-        <div className="main-content">
-          <section className="resultInfo_container">
-            <ResultTxt categoryNum={categoryNum} />
-          </section>
-          <section className="resultBtn_container">
-            {categoryNum.map((mode, index) => (
-              <ResultBtn mode={mode} />
-            ))}
-          </section>
-        </div>
-      ) : (
-        <ErrorPage navigate={navigate} />
-      )}
-      <div className="footer">
-        <Mybutton size="large" onClick={goMain}>
-          다시하기
-        </Mybutton>
-      </div>
+      <ContentBox>
+        {interest.length > 1 ? (
+          <div className="main-content">
+            <section className="resultInfo_container">
+              <ResultTxt categoryNum={categoryNum} />
+            </section>
+            <section className="resultBtn_container">
+              {categoryNum.map((mode, index) => (
+                <ResultBtn mode={mode} />
+              ))}
+            </section>
+          </div>
+        ) : (
+          <ErrorPage navigate={navigate} />
+        )}
+      </ContentBox>
+      <Footer>
+        <Mybutton onClick={goMain}>다시하기</Mybutton>
+      </Footer>
     </ResultLayOut>
   );
 };
+const ContentBox = styled.div`
+  grid-area: content;
+`;
+const Footer = styled.div`
+  grid-area: footer;
+  ${theme.common.flexCenter}
+`;
 
 const ResultLayOut = styled(LayOut)`
   .main-content {

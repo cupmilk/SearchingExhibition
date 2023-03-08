@@ -6,35 +6,48 @@ import RecommandPage from "../pages/RecommandPage";
 import Question from "../pages/Question";
 
 import ErrorPage from "../pages/ErrorPage";
-
+import Header from "../components/Header";
+import theme from "./../styles/theme";
 const Router = () => {
   //[exhibition,exhibition, exhibition, consert ] => exhibition
   //[1,2,3].length랑 비교해서 pop 으로 지우기
 
   // useConText를 이용해서 intereset값 관리하기
   const [interest, SetInterest] = useState([]);
-
+  const [headerColor, SetHeaderColor] = useState(theme.palette.deepGreen);
   const handleInterest = useCallback((e) => {
     SetInterest(e);
   }, []);
 
-  return (
-    <Routes>
-      <Route path="/" element={<Main />}></Route>
+  const handleHeaderColor = useCallback((color) => {
+    SetHeaderColor(color);
+  }, []);
 
-      <Route
-        path="/Question"
-        element={
-          <Question handleInterest={handleInterest} interest={interest} />
-        }
-      ></Route>
-      <Route
-        path="/ResultPage"
-        element={<ResultPage interest={interest} />}
-      ></Route>
-      <Route path="/recommand" element={<RecommandPage />}></Route>
-      <Route path="/error" element={<ErrorPage />}></Route>
-    </Routes>
+  return (
+    <>
+      <Header color={headerColor} />
+      <Routes>
+        <Route
+          path="/"
+          element={<Main handleHeaderColor={handleHeaderColor} />}
+        ></Route>
+        <Route
+          path="/Question"
+          element={
+            <Question handleInterest={handleInterest} interest={interest} />
+          }
+        ></Route>
+        <Route
+          path="/ResultPage"
+          element={<ResultPage interest={interest} />}
+        ></Route>
+        <Route
+          path="/recommand"
+          element={<RecommandPage handleHeaderColor={handleHeaderColor} />}
+        ></Route>
+        <Route path="/error" element={<ErrorPage />}></Route>
+      </Routes>
+    </>
   );
 };
 

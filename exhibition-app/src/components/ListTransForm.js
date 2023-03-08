@@ -162,7 +162,7 @@ const Card = styled.div`
       > span {
         min-height: 40px;
         font-size: 1.25rem;
-        white-space: normal;
+        text-align: center;
       }
     }
   }
@@ -187,9 +187,11 @@ const Card = styled.div`
         font-size: 1.25rem;
       }
       > img {
-        width: 100%;
-        // max-width : 315px;
-        height: 400px;
+        max-width: calc(500px - 2rem);
+        max-height: calc(500px - 2rem);
+        width: calc(100vw - 2rem);
+        height: auto;
+        overflow: hidden;
       }
     }
   }

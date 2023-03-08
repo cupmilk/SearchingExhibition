@@ -2,54 +2,33 @@ import React from "react";
 import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
 import theme from "./theme";
+import { media } from "./media";
 
 const BasicLayOut = styled.div`
   display: grid;
   width: 100vw;
-  height: 100vh;
-  grid-template-columns: 1fr 10fr 1fr;
-  grid-template-rows: 75px 1fr 75px;
+  height: calc(100vh - 10%);
+  ${media.desktop`
+  height: calc(100vh - 100px);
 
+    `}
+
+  ${media.tablet`
+  height: calc(100vh - 80px);
+
+    `}
+
+    ${media.mobile`
+    height: calc(100vh - 80px);   
+
+    `}
+  //반응형에 따라서 크기 조절되도록만 하다
+  grid-template-columns: 5% 90% 5%;
+  grid-template-rows: 10% auto 10%;
   grid-template-areas:
-    "header header header"
-    "   a    main    b   "
+    ". content ."
+    ". content ."
     "footer footer footer";
-
-  .header {
-    grid-area: header;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 0px solid;
-    background: ${theme.palette.deepGreen};
-    //폴리곤 모형
-    clip-path: polygon(
-      0 0,
-      100% 0,
-      100% calc(100% - 20px),
-      calc(50% + 320px) 100%,
-      47% calc(100% - 15px),
-      calc(50% - 310px) 100%,
-      0 calc(100% - 15px)
-    );
-    cursor: pointer;
-  }
-
-  .main-content {
-    grid-area: main;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0 15px;
-  }
-  .footer {
-    grid-area: footer;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
 `;
 
 function LayOut({ children, color, size, outline, fullWidth, ...rest }) {

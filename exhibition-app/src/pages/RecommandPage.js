@@ -5,13 +5,14 @@ import SkeletonListForm from "../components/SkeletonListForm";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
-import Header from "./../components/Header";
 import Mybutton from "./../styles/Mybutton";
 import { css } from "styled-components";
 import resultCategoryInfo from "./../utils/resultCategoryInfo";
 import theme from "./../styles/theme";
 
-const RecommandPage = () => {
+const RecommandPage = (props) => {
+  const { handleHeaderColor } = props;
+
   const [newData, setNewData] = useState(null); // apiData
   const [shaowDatas, setShowDatas] = useState([]); // 날짜별 정리된 Api_Date
   const [listNum, setListNum] = useState(1);
@@ -134,19 +135,19 @@ const RecommandPage = () => {
       },
     };
   }
+  const { banner, element } = recommandPageColor.color;
+
+  //headColor 적용
+  const headerValue = useCallback(() => {
+    handleHeaderColor(banner);
+  }, [handleHeaderColor, banner]);
 
   useEffect(() => {
-    console.log(shaowDatas);
-  }, [shaowDatas]);
-
-  const { banner, element } = recommandPageColor.color;
+    headerValue();
+  }, [headerValue]);
 
   return (
     <RecommandLayOut>
-      <ReccomandHeader className="header" color={banner}>
-        <Header />
-      </ReccomandHeader>
-
       {newData ? (
         <>
           <div className="list_container">
@@ -195,10 +196,6 @@ const themebackground = css`
   }}
 `;
 
-const ReccomandHeader = styled.div`
-  ${themebackground}
-`;
-
 const RecommandLayOut = styled.div`
   width: 100vw;
   .header {
@@ -209,7 +206,6 @@ const RecommandLayOut = styled.div`
     border: 0px solid;
 
     ${themebackground}
-    // background : #33a474;
     color: white;
     //폴리곤 모형
     clip-path: polygon(

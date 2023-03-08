@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { css } from "styled-components";
 import resultCategoryInfo from "../utils/resultCategoryInfo";
 import switchInterestInfo from "./../utils/switchInterestInfo";
+import theme from "./../styles/theme";
 
 //from resultPage
 const ResultTxt = (props) => {
@@ -68,10 +69,10 @@ const IndexTitle = styled.h2`
   align-items: center;
   width: fit-content;
   height: 35px;
-  font-size: 1.35rem;
+  font-size: ${theme.fontSizes.txt};
   color: white;
 
-  padding: 0 15px;
+  padding: 0 10px;
   border: 0px solid;
   border-radius: 20px;
 
@@ -80,17 +81,11 @@ const IndexTitle = styled.h2`
 `;
 
 const TxtContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  line-height: 125%;
+  ${theme.common.flexCenterColumn}
+  line-height: 1.8rem;
 
   .character_info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    ${theme.common.flexCenterColumn}
 
     :first-child {
       font-size: 1rem;
@@ -98,6 +93,12 @@ const TxtContainer = styled.div`
     > h1 {
       font-size: 2rem;
       margin: 0 0 15px 0;
+    }
+    > img {
+      max-width: calc(500px - 2rem);
+      max-height: calc(500px - 2rem);
+      width: calc(100vw - 2rem);
+      height: calc(100vw - 2rem);
     }
   }
 
@@ -113,7 +114,7 @@ const TxtContainer = styled.div`
     justify-content: center;
     align-items: start;
 
-    font-size: 1.25rem;
+    font-size: ${theme.fontSizes.txt};
     .info_section {
       background: #fff;
 
