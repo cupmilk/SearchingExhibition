@@ -4,7 +4,6 @@ import Mybutton from "./../styles/Mybutton";
 import styled from "styled-components";
 import resultCategoryInfo from "../utils/resultCategoryInfo";
 import ErrorPage from "../pages/ErrorPage";
-import switchInterestInfo from "./../utils/switchInterestInfo";
 
 // from. resultPage
 const ResultBtn = (props) => {
@@ -15,7 +14,7 @@ const ResultBtn = (props) => {
   // categoryInfo설정
   const matchingInterestType = useCallback(() => {
     const filteredCategory = resultCategoryInfo.categoryInfo.find(
-      (element) => element.value === switchInterestInfo(mode)
+      (element) => element.id === Number(mode)
     );
     setInterestType(() => filteredCategory);
   }, [mode]);

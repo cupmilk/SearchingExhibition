@@ -38,10 +38,19 @@ const ResultPage = (props) => {
   const goMain = () => {
     navigate("/");
   };
+  const goAllResult = () => {
+    //dev
+    // window.open("http://localhost:3000/resultPage/all");
+    window.open("https://cupmilk.netlify.app/ResultPage");
+  };
 
   useEffect(() => {
     getCategoryNum();
   }, [getCategoryNum]);
+
+  // useEffect(() => {
+  //   console.log(interest);
+  // }, [interest]);
 
   return (
     <ResultLayOut>
@@ -53,7 +62,7 @@ const ResultPage = (props) => {
             </section>
             <section className="resultBtn_container">
               {categoryNum.map((mode, index) => (
-                <ResultBtn mode={mode} />
+                <ResultBtn mode={mode} key={index} />
               ))}
             </section>
           </div>
@@ -63,6 +72,7 @@ const ResultPage = (props) => {
       </ContentBox>
       <Footer>
         <Mybutton onClick={goMain}>다시하기</Mybutton>
+        <Mybutton onClick={goAllResult}>모든 유형 살펴보기</Mybutton>
       </Footer>
     </ResultLayOut>
   );
@@ -72,7 +82,12 @@ const ContentBox = styled.div`
 `;
 const Footer = styled.div`
   grid-area: footer;
-  ${theme.common.flexCenter}
+  margin: 20% 0;
+
+  ${theme.common.flexCenterColumn}
+  > button {
+    min-height: 2.5rem;
+  }
 `;
 
 const ResultLayOut = styled(LayOut)`

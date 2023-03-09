@@ -8,6 +8,7 @@ import Question from "../pages/Question";
 import ErrorPage from "../pages/ErrorPage";
 import Header from "../components/Header";
 import theme from "./../styles/theme";
+import AllResultPage from "./../pages/AllResultPage";
 const Router = () => {
   //[exhibition,exhibition, exhibition, consert ] => exhibition
   //[1,2,3].length랑 비교해서 pop 으로 지우기
@@ -32,19 +33,21 @@ const Router = () => {
           element={<Main handleHeaderColor={handleHeaderColor} />}
         ></Route>
         <Route
-          path="/Question"
+          path="/question"
           element={
             <Question handleInterest={handleInterest} interest={interest} />
           }
         ></Route>
         <Route
-          path="/ResultPage"
+          path="/resultPage"
           element={<ResultPage interest={interest} />}
         ></Route>
+        <Route path="/resultPage/all" element={<AllResultPage />}></Route>
         <Route
           path="/recommand"
           element={<RecommandPage handleHeaderColor={handleHeaderColor} />}
         ></Route>
+
         <Route path="/error" element={<ErrorPage />}></Route>
       </Routes>
     </>

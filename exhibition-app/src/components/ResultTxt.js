@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { css } from "styled-components";
 import resultCategoryInfo from "../utils/resultCategoryInfo";
-import switchInterestInfo from "./../utils/switchInterestInfo";
 import theme from "./../styles/theme";
 
 //from resultPage
@@ -14,7 +13,7 @@ const ResultTxt = (props) => {
   const matchingInterestType = useCallback(() => {
     if (categoryNum.length === 1) {
       const filteredCategory = resultCategoryInfo.categoryInfo.find(
-        (element) => element.value === switchInterestInfo(categoryNum[0])
+        (element) => element.id === Number(categoryNum[0])
       );
       setInterestType(filteredCategory);
     } else if (categoryNum.length > 1) {

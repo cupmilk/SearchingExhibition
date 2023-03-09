@@ -6,8 +6,6 @@ import theme from "../styles/theme";
 import { css } from "styled-components";
 import qaData from "./../utils/qaData";
 import { useNavigate } from "react-router-dom";
-import Header from "./../components/Header";
-import ListTransForm from "./../components/ListTransForm";
 import { media } from "./../styles/media";
 
 // 진행도파악
@@ -69,7 +67,6 @@ const Question = (props) => {
                     <li key={index}>
                       <Mybutton
                         color={theme.palette.pink}
-                        size="medium"
                         onClick={handleStore}
                         id={data.id}
                         value={data.value}

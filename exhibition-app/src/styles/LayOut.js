@@ -24,7 +24,7 @@ const BasicLayOut = styled.div`
     `}
   //반응형에 따라서 크기 조절되도록만 하다
   grid-template-columns: 5% 90% 5%;
-  grid-template-rows: 10% auto 10%;
+  grid-template-rows: 10% auto 20%;
   grid-template-areas:
     ". content ."
     ". content ."
