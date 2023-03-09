@@ -41,7 +41,7 @@ const ResultPage = (props) => {
   const goAllResult = () => {
     //dev
     // window.open("http://localhost:3000/resultPage/all");
-    window.open("https://cupmilk.netlify.app/ResultPage");
+    window.open("https://cupmilk.netlify.app/resultPage/all");
   };
 
   useEffect(() => {
