@@ -48,7 +48,7 @@ const Router = () => {
           element={<RecommandPage handleHeaderColor={handleHeaderColor} />}
         ></Route>
 
-        <Route path="/error" element={<ErrorPage />}></Route>
+        <Route path="/*" element={<ErrorPage />}></Route>
       </Routes>
     </>
   );

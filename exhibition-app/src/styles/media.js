@@ -2,7 +2,7 @@ import { css } from "styled-components";
 
 export const media = {
   desktop: (...args) => css`
-    @media (max-width: 1200px) {
+    @media (max-width: 1600px) {
       ${css(...args)}
     }
   `,

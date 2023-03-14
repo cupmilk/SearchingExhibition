@@ -54,26 +54,28 @@ const ResultPage = (props) => {
 
   return (
     <ResultLayOut>
-      <ContentBox>
-        {interest.length > 1 ? (
-          <div className="main-content">
-            <section className="resultInfo_container">
-              <ResultTxt categoryNum={categoryNum} />
-            </section>
-            <section className="resultBtn_container">
-              {categoryNum.map((mode, index) => (
-                <ResultBtn mode={mode} key={index} />
-              ))}
-            </section>
-          </div>
-        ) : (
-          <ErrorPage navigate={navigate} />
-        )}
-      </ContentBox>
-      <Footer>
-        <Mybutton onClick={goMain}>다시하기</Mybutton>
-        <Mybutton onClick={goAllResult}>모든 유형 살펴보기</Mybutton>
-      </Footer>
+      {interest.length > 1 ? (
+        <>
+          <ContentBox>
+            <div className="main-content">
+              <section className="resultInfo_container">
+                <ResultTxt categoryNum={categoryNum} />
+              </section>
+              <section className="resultBtn_container">
+                {categoryNum.map((mode, index) => (
+                  <ResultBtn mode={mode} key={index} />
+                ))}
+              </section>
+              <Mybutton onClick={goMain}>다시하기</Mybutton>
+            </div>
+          </ContentBox>
+          <Footer>
+            <Mybutton onClick={goAllResult}>모든 유형 살펴보기</Mybutton>
+          </Footer>
+        </>
+      ) : (
+        <ErrorPage navigate={navigate} />
+      )}
     </ResultLayOut>
   );
 };
@@ -82,8 +84,6 @@ const ContentBox = styled.div`
 `;
 const Footer = styled.div`
   grid-area: footer;
-  margin: 20% 0;
-
   ${theme.common.flexCenterColumn}
   > button {
     min-height: 2.5rem;
@@ -92,10 +92,13 @@ const Footer = styled.div`
 
 const ResultLayOut = styled(LayOut)`
   .main-content {
-    /* max-width: ; */
+    ${theme.common.flexCenterColumn}
     padding-bottom: 5%;
     & p {
       font-size: 1.1rem;
+    }
+    & button {
+      margin: 15px 0;
     }
 
     .resultBtn_container {

@@ -38,13 +38,12 @@ const Main = (props) => {
             <SubTitle>나의 성향과 맞는 문화생활은?</SubTitle>
           </div>
         </div>
-
-        <div>
-          <Mybutton color="green" size="large" onClick={goQuestion}>
-            테스트 시작하기
-          </Mybutton>
-        </div>
       </ContentBox>
+      <Footer>
+        <Mybutton color="green" size="large" onClick={goQuestion}>
+          테스트 시작하기
+        </Mybutton>
+      </Footer>
     </LayOut>
   );
 };
@@ -55,7 +54,10 @@ const Title = styled.h1`
 const SubTitle = styled.h1`
   font-size: ${theme.fontSizes.subtitle};
 `;
-
+const Footer = styled.div`
+  grid-area: footer;
+  ${theme.common.flexCenter}
+`;
 const ContentBox = styled.div`
   grid-area: content;
   ${theme.common.flexCenterColumn}
@@ -68,25 +70,5 @@ const ContentBox = styled.div`
     }
   }
 `;
-
-// const MainLayOut = styled(LayOut)`
-//   .main-content {
-//     .mainImg {
-//       width: 300px;
-//       height: 300px;
-//     }
-//     .title_container {
-//       display: flex;
-//       flex-direction: column;
-//       align-items: center;
-//       margin: 2.5rem;
-
-//       & > h2 {
-//         font-size: 2rem;
-//         color: ${(props) => props.theme.palette.green};
-//       }
-//     }
-//   }
-// `;
 
 export default Main;

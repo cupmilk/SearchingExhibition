@@ -55,6 +55,8 @@ const ResultTxt = (props) => {
   );
 };
 
+//결과 공유 -> 고유 아이디 부여 -> 공유 ->nextjs에서의 공유처럼
+
 const bgcolorStyles = css`
   ${({ color }) => {
     return css`
@@ -115,11 +117,16 @@ const TxtContainer = styled.div`
 
     font-size: ${theme.fontSizes.txt};
     .info_section {
-      background: #fff;
+      > p {
+        max-width: 650px;
+      }
 
       // box-shadow: 2px 4px 12px rgb(0 0 0 / 8%);
     }
     .recommand_section {
+      > p {
+        max-width: 650px;
+      }
     }
   }
 `;
