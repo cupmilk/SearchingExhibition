@@ -36,10 +36,6 @@ const ErrorPage = () => {
     getRandomNum();
   }, []);
 
-  useEffect(() => {
-    console.log(showImg);
-  }, [showImg]);
-
   return (
     <div>
       {randomNum && showImg[randomNum] ? (
